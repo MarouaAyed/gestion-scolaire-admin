@@ -16,18 +16,18 @@
             "outputPath": "dist/gestion-scolaire-admin",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js", "src/polyfills.ts",  "@angular/localize/init"],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
+              "src/assets",
+              "src/favicon.ico"
             ],
             "styles": [
-              "src/styles.css"
+              "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "src/assets/scss/now-ui-dashboard.scss",
+              "src/assets/demo/demo.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
@@ -78,24 +78,25 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing","src/polyfills.ts"],
             "tsConfig": "tsconfig.spec.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
             "styles": [
-              "src/styles.css"
+              "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "src/assets/scss/now-ui-dashboard.scss",
+              "src/assets/demo/demo.css"
+            ],
+            "assets": [
+              "src/assets",
+              "src/favicon.ico"
             ],
             "scripts": []
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "1103622a-5762-41c6-976b-abbff853da0a"
   }
 }
