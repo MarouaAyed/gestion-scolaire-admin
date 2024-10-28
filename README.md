@@ -28,5 +28,10 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 
 ng generate component navbar
+ng generate service services/ecole/ecole
+
+ng generate class models/ecole/ecole --type=model
+
+
 npm cache clean --force
 npm install

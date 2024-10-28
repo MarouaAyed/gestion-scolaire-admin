@@ -1,1 +1,155 @@
-<p>niveau-scolaire works!</p>
+<div class="panel-header panel-header-sm"></div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Niveaux scolaires</h5>
+          <p class="category">
+            Résultats :{{ niveauxScolaires.length }} niveaux scolaires.
+          </p>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead class="text-primary">
+                <th class="text-center">CODE</th>
+                <th class="text-center">TITRE</th>
+                <th class="text-center">NOM COURT</th>
+                <th class="text-center">ORDRE DE TRI</th>
+                <th class="text-center">CLASSE SUPERIEURE</th>
+
+                <th class="text-center">ACTIONS</th>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let niveau of niveauxScolaires">
+                  <td>
+                    {{ niveau.code }}
+                  </td>
+                  <td>
+                    {{ niveau.titre }}
+                  </td>
+                  <td class="text-center">
+                    {{ niveau.nomCourt }}
+                  </td>
+                  <td class="text-center">
+                    {{ niveau.ordreTri }}
+                  </td>
+                  <td class="text-center">
+                    {{ niveau.classeSuperieure }}
+                  </td>
+                  <td class="text-center">
+                    <button
+                      type="button"
+                      class="btn btn-dark"
+                      (click)="updateNiveauxScolaires(niveau.id)"
+                    >
+                      Modifier
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      (click)="deleteNiveauScolaire(niveau.id)"
+                    >
+                      Supprimer
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--<div class="main-content">
+  <div class="row">-->
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Ajouter niveau scolaire</h4>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="insertNiveauScolaire()">
+            <div class="row">
+              <div class="col-md-5 pr-1">
+                <!--<div class="form-group">
+                  <label>Code</label>
+                  <input type="number" class="form-control" [(ngModel)]="niveauScolaire.code" name="code" readonly >
+                </div>-->
+                <div class="form-group">
+                  <label>Titre</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="niveauScolaire.titre"
+                    name="code"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label>Nom court</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="niveauScolaire.nomCourt"
+                    name="nomCourt"
+                    required
+                  />
+                </div>
+              </div>
+              <!--</>div>-->
+              <!--<div class="row">-->
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label>Ordre de tri</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    [(ngModel)]="niveauScolaire.ordreTri"
+                    name="ordreTri"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label>Classe supérieure</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="niveauScolaire.classeSuperieure"
+                    name="classeSuperieure"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!--<div class="col-md-5 pr-1">
+              <div class="form-group">
+                <label>Classe supérieure</label>
+                <select class="form-control" [(ngModel)]="niveauScolaire.classeSuperieure" name="classeSuperieure" required >
+                  <option value="femme">Femme</option>
+                  <option value="homme">Homme</option>
+                </select>
+              </div>
+            </div>
+            </div>-->
+
+            <div class="row">
+              <div class="col-12 d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary mb-2">
+                  Ajouter
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

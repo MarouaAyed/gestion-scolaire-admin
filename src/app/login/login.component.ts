@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthserviceService } from '../services/auth/authservice.service';
+import { AuthserviceService } from '../services/auth/auth.service';
 import {
   FormControl,
   FormGroup,
@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
             console.log('Login successful', response);
             localStorage.setItem('token', response['authorisation'].token);
             if (response['user'].is_admin) {
-             this.router.navigate(['admin/dashboard']);
+              this.router.navigate(['admin/dashboard']);
               console.log('router dashboard');
             } else {
               console.error('Login failed');

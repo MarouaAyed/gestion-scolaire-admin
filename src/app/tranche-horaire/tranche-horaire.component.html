@@ -1,1 +1,145 @@
-<p>tranche-horaire works!</p>
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+            <h5 class="title"> Tranches horaires</h5>
+            <p class="category"> Résultats : {{ tranchehoraires.length }} tranches horaires.</p>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead class=" text-primary">
+                <th class="text-center">
+                  CODE
+                </th>
+                <th class="text-center">
+                  TITRE
+                </th>
+                <th  class="text-center">
+                  NOM COURT
+                </th>
+                <th class="text-center">
+                  ORDRE DE TRI 
+                </th>
+                <th class="text-center">
+                  Durée (MINUTES)
+                </th>
+
+                <th class="text-center">
+                    ACTIONS
+                  </th>
+              </thead>
+
+
+              <tbody>
+                <tr *ngFor="let tranche of tranchehoraires">
+                  
+                  <td >
+                    {{ tranche.code }}
+                  </td>
+                  <td >
+                    {{ tranche.titre }}
+                  </td>
+                  <td class="text-center">
+                    {{ tranche.nomCourt }}
+                  </td>
+                  <td class="text-center">
+                    {{ tranche.ordreTri }}
+                  </td>
+                  <td class="text-center">
+                    {{ tranche.Duree }}
+                  </td>
+                  <td class="text-center">
+                    <button type="button" class="btn btn-dark"(click)="updateTrancheHoraire(tranche.id)">Modifier  </button>
+                    <button type="button" class="btn btn-danger" (click)="deleteTrancheHoraire(tranche.id)">Supprimer</button>
+                </td>
+                </tr>
+                
+
+                
+
+
+                  
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+<!--<div class="main-content">
+  <div class="row">-->
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+            <h4 class="card-title"> Ajouter tranche horaire</h4>
+            
+          </div>
+        <div class="card-body">
+          <form  (ngSubmit)="insertTrancheHoraireData()">
+
+
+            
+            <div class="row">
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label>Code</label>
+                  <input type="number" class="form-control" [(ngModel)]="tranchehoraire.code" name="code" required>                </div>
+              </div>
+              
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label>Titre</label>
+                  <input type="text" class="form-control" [(ngModel)]="tranchehoraire.titre" name="titre" required>                </div>
+              </div>
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label >Nom court</label>
+                  <input type="text" class="form-control" [(ngModel)]="tranchehoraire.nomCourt" name="nomCourt" required>                </div>
+              </div>
+            <!--</>div>-->
+            <!--<div class="row">-->
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label>Ordre de tri</label>
+                  <input type="number" class="form-control" [(ngModel)]="tranchehoraire.ordreTri" name="ordreTri" required>                </div>
+              </div>
+
+
+
+              
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label>Durée (minutes)</label>
+                  <input type="number" class="form-control"   [(ngModel)]="tranchehoraire.Duree" name="Duree" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                  <button type="submit" class="btn btn-primary mb-2">Ajouter</button>
+                </div>
+              </div>
+            
+
+           
+            
+          </form>
+        </div>
+      </div>
+    
+    
+    </div>
+      
+  

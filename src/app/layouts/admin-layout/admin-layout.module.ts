@@ -12,6 +12,12 @@ import { AdminLayoutComponent } from './admin-layout.component';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { ComponentsModule } from '../../components/components.module';
+import { EcoleComponent } from '../../ecole/ecole.component';
+import { RoleComponent } from '../../role/role.component';
+import { VilleComponent } from '../../ville/ville.component';
+import { NiveauScolaireComponent } from '../../niveau-scolaire/niveau-scolaire.component';
+import { TrancheHoraireComponent } from '../../tranche-horaire/tranche-horaire.component';
+import { RecetteComponent } from '../../recette/recette.component';
 // Other component imports...
 
 @NgModule({
@@ -28,6 +34,12 @@ import { ComponentsModule } from '../../components/components.module';
   declarations: [
     AdminLayoutComponent,
     DashboardComponent,
+    EcoleComponent,
+    RoleComponent,
+    VilleComponent,
+    NiveauScolaireComponent,
+    TrancheHoraireComponent,
+    RecetteComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

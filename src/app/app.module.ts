@@ -15,23 +15,22 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { RegisterComponent } from './register/register.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { AuthserviceService } from './services/auth/authservice.service';
+import { AuthserviceService } from './services/auth/auth.service';
 
 @NgModule({
   imports: [
     CommonModule,
     BrowserModule,
-    RouterModule.forRoot(routes), 
-    FormsModule, 
-    ReactiveFormsModule, 
+    RouterModule.forRoot(routes),
+    FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     ComponentsModule,
     NgbModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
-  declarations: [
-  ],
+  declarations: [],
   providers: [AuthserviceService],
-   bootstrap: [AppComponent],
+  /* bootstrap: [AppComponent], */
 })
 export class AppModule {}
