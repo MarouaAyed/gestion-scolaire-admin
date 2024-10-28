@@ -18,6 +18,7 @@ import { VilleComponent } from '../../ville/ville.component';
 import { NiveauScolaireComponent } from '../../niveau-scolaire/niveau-scolaire.component';
 import { TrancheHoraireComponent } from '../../tranche-horaire/tranche-horaire.component';
 import { RecetteComponent } from '../../recette/recette.component';
+import { EleveComponent } from '../../eleve/eleve.component';
 // Other component imports...
 
 @NgModule({
@@ -39,7 +40,8 @@ import { RecetteComponent } from '../../recette/recette.component';
     VilleComponent,
     NiveauScolaireComponent,
     TrancheHoraireComponent,
-    RecetteComponent
+    RecetteComponent,
+    EleveComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

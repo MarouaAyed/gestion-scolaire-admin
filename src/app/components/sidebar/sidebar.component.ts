@@ -26,12 +26,6 @@ export const ROUTES: RouteInfo[] = [
     class: '',
   },
   { path: '/eleve', title: 'Eleve', icon: 'education_hat', class: '' },
-  {
-    path: '/utilisateur',
-    title: 'Utilisateurs',
-    icon: 'users_single-02',
-    class: '',
-  },
   { path: '/cour', title: 'Cours', icon: 'files_paper', class: '' },
 
   {
