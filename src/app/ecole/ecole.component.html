@@ -93,7 +93,7 @@
                                   {{ecole.nombreJoursRotastion}}
                                 </td>
                                 <td class="text-center">
-                                  {{ecole.nomVille}}
+                                  {{ecole.nom}}
                                 </td>
 
                                 <td class="text-center">
@@ -202,7 +202,7 @@
 
                   <select [(ngModel)]="ecole.id_ville" name="id_ville" class="form-control">
                     <option *ngFor="let ville of villes" [value]="ville.id">
-                      {{ ville.nomVille }}
+                      {{ ville.nom }}
                     </option>
                   </select>
                 </div>

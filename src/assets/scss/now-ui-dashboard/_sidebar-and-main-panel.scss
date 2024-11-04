@@ -350,9 +350,9 @@
 
 .panel-header {
   height: 260px;
-  padding-top: 80px;
+  padding-top: 20px;
   padding-bottom: 45px;
-  @include panel-gradient($black-color);
+  @include panel-gradient($orange-color);
   position: relative;
   overflow: hidden;
 
@@ -374,7 +374,7 @@
 }
 
 .panel-header-sm{
-  height: 135px;
+  height: 10px;
 }
 
 .panel-header-lg{

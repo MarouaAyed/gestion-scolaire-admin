@@ -19,11 +19,14 @@ import { VilleComponent } from '../../ville/ville.component';
 import { EditVilleComponent } from '../../edit-ville/edit-ville.component';
 import { EditEcoleComponent } from '../../edit-ecole/edit-ecole.component';
 import { RecetteComponent } from '../../recette/recette.component';
+import { SalleComponent } from '../../salle/salle.component';
 
 
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
+    { path:'salle',         component:SalleComponent},
+
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },
@@ -31,7 +34,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'niveau-scolaire',        component: NiveauScolaireComponent },
     { path: 'tranche-horaire',        component: TrancheHoraireComponent },
-    { path: 'Role',        component: RoleComponent },
+    { path: 'role',        component: RoleComponent },
     { path: 'eleve',        component: EleveComponent },
     { path:'ecole',         component:EcoleComponent},
     { path:'cour', component:CourComponent},
@@ -41,5 +44,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'edit-tranche-horaire/:id', component: EditTrancheHoraireComponent },
     { path: 'edit-ville/:id', component: EditVilleComponent },
     { path: 'edit-ecole/:id', component: EditEcoleComponent },
-    { path: 'recette', component: RecetteComponent}
+    { path: 'recette', component: RecetteComponent},
 ];

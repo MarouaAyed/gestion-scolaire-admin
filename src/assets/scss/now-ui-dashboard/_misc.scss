@@ -24,6 +24,18 @@ body{
     @include transition($general-transition-time, $transition-ease);
 }
 
+.nav-item a {
+    display: flex !important;           /* Use flexbox to align items in a row */
+}
+
+.nav-item a i {
+    margin-right: 10px !important;    /* Space between icon and title */
+}
+
+.nav-item a p {
+    margin: 0  !important;             /* Remove default margin from paragraph */
+}
+
 //transition for dropdown caret
 .dropdown-toggle:after,
 .bootstrap-switch-label:before,

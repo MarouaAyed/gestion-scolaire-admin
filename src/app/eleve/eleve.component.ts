@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Eleve } from '../models/eleve/eleve.model';
 import { EleveService } from '../services/eleve/eleve.service';
 import { Router } from 'express';
+import { Ville } from '../models/ville/ville.model';
+import { VilleComponent } from '../ville/ville.component';
+import { VilleService } from '../services/ville/ville.service';
 
 @Component({
   selector: 'app-eleve',
@@ -9,15 +12,21 @@ import { Router } from 'express';
   styleUrls: ['./eleve.component.css'],
 })
 export class EleveComponent implements OnInit {
+  villes: Ville[] = [];
   eleves: any[] = [];
   eleve: Eleve;
+  selectedCityAddresses: string[] = []; 
 
-  constructor(private eleveService: EleveService) {
+  constructor(private eleveService: EleveService, private villeService: VilleService) {
     this.eleve = new Eleve();
     this.eleve.image = undefined;
   }
 
   ngOnInit(): void {
+    this.villeService.villes$.subscribe((villes) => {
+      this.villes = villes; // Get the latest villes from the service
+    });
+    this.villeService.getVilles(); // Fetch villes
     this.getEleves();
   }
 
@@ -31,6 +40,15 @@ export class EleveComponent implements OnInit {
   onFileChange(event: any) {
     const file = event.target.files[0];
     this.eleve.image = file || undefined; // Set or reset image
+  }
+
+  onCityChange(event: any) {
+    const selectedCityId = event.target.value;
+    this.fetchAddressesForCity(selectedCityId); // Fetch addresses for the selected city
+  }
+
+  fetchAddressesForCity(cityId: string) {
+    this.villeService.getAddressesByCityId(cityId); // Call the service method
   }
 
   onSubmit() {
@@ -49,5 +67,6 @@ export class EleveComponent implements OnInit {
 
   resetForm() {
     this.eleve = new Eleve(); // Create a new instance of Eleve
+    this.selectedCityAddresses = []; // Clear selected addresses when resetting the form
   }
 }

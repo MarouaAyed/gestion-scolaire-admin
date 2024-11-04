@@ -12,7 +12,7 @@ export class Ecole {
     nombreJoursRotation?: number;
     id_ville?: number;
     codePostalVille?: string;
-    nomVille?: string;
+    nom?: string;
 }
 
   

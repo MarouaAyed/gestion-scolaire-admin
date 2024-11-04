@@ -4,20 +4,51 @@
       <img src="./assets/img/logo.png" style="width: 50px; height: 50px" />
     </div>
   </a>
-  <a class="simple-text logo-normal"> Gestion Scolaire </a>
+  <a class="simple-text logo-normal" href="admin/ecole"> Gestion Scolaire </a>
 </div>
 
 <div class="sidebar-wrapper">
   <ul class="nav">
     <li
+      *ngFor="let menuItem of menuItems; let i = index"
+      [ngClass]="menuItem.class"
+      class="nav-item"
       routerLinkActive="active"
-      *ngFor="let menuItem of menuItems"
-      class="{{ menuItem.class }} nav-item"
     >
-      <a [routerLink]="[menuItem.path]">
+      <a
+        *ngIf="menuItem.items"
+        (click)="toggleMenu(i)"
+        href="javascript:void(0)"
+      >
+        <i class="now-ui-icons {{ menuItem.icon }}"></i>
+        <p>{{ menuItem.title }}</p>
+        <i
+          class="now-ui-icons arrows-1_minimal-down"
+          *ngIf="expandedMenuIndex !== i"
+        ></i>
+        <i
+          class="now-ui-icons arrows-1_minimal-up"
+          *ngIf="expandedMenuIndex === i"
+        ></i>
+      </a>
+
+      <a *ngIf="!menuItem.items" [routerLink]="[menuItem.path]">
         <i class="now-ui-icons {{ menuItem.icon }}"></i>
         <p>{{ menuItem.title }}</p>
       </a>
+
+      <ul *ngIf="expandedMenuIndex === i">
+        <li
+          *ngFor="let subItem of menuItem.items"
+          class="nav-item"
+          routerLinkActive="active"
+        >
+          <a [routerLink]="[subItem.path]">
+            <i class="now-ui-icons {{ subItem.icon }}"></i>
+            <p>{{ subItem.title }}</p>
+          </a>
+        </li>
+      </ul>
     </li>
   </ul>
 </div>

@@ -14,22 +14,19 @@
               <th class="text-center">Nom & Prénom</th>
               <th class="text-center">Email</th>
 
-              <th class="text-center">Num </th>
+              <th class="text-center">Num</th>
 
               <th class="text-center">ACTIONS</th>
             </thead>
 
             <tbody>
               <tr *ngFor="let eleve of eleves">
-                <td>
-                  {{ eleve.nom }}  {{ eleve.prenom }}
-                </td>
+                <td>{{ eleve.nom }} {{ eleve.prenom }}</td>
                 <td>
                   {{ eleve.email }}
                 </td>
-               
 
-             <!--    <td class="text-center">
+                <!--    <td class="text-center">
                   <button
                     type="button"
                     class="btn btn-dark"
@@ -143,6 +140,27 @@
                     required
                   />
                 </div>
+              </div>
+
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label>Ville</label>
+                  <select name="id_ville" class="form-control"  (change)="onCityChange($event)">
+                    <option *ngFor="let ville of villes" [value]="ville.id">
+                      {{ ville.nom }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Section to display addresses -->
+              <div *ngIf="selectedCityAddresses.length > 0" class="mt-3">
+                <h5>Adresses dans la ville sélectionnée:</h5>
+                <ul>
+                  <li *ngFor="let adresse of selectedCityAddresses">
+                    {{ adresse }}
+                  </li>
+                </ul>
               </div>
 
               <div class="col-md-5 pr-1">

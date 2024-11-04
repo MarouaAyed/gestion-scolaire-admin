@@ -20,9 +20,9 @@ export class VilleComponent implements OnInit {
   }
   getVilleData() {
     console.log('liste des villes');
-    this.villeService.getVilles().subscribe((res) => {
-      console.log(res);
-      this.Villes = res['Villes'];
+   this.villeService.getVilles();
+    this.villeService.villes$.subscribe((villes) => {
+      this.Villes = villes;
     });
   }
 
@@ -31,7 +31,7 @@ export class VilleComponent implements OnInit {
     //console.log(this.product);
     this.villeService.insertVille(this.ville).subscribe((res) => {
       console.log(res);
-   //   this.Villes = res['Villes'];
+      //   this.Villes = res['Villes'];
       this.Villes.push(res);
       this.ville = new Ville();
       // this.getProductData();

@@ -1,7 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Ville } from '../../models/ville/ville.model';
-import { Observable } from 'rxjs';
+import { Adresse } from '../../models/adresse/adresse.model';
+
+import { Observable, BehaviorSubject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -9,33 +11,69 @@ import { environment } from '../../../environments/environment';
 })
 export class VilleService {
   private apiUrl = `${environment.apiUrl}/${environment.prefix}`;
+  private villesSubject = new BehaviorSubject<Ville[]>([]);
+  villes$ = this.villesSubject.asObservable(); // Observable for components to subscribe to
+
+  private adressesSubject = new BehaviorSubject<Adresse[]>([]);
+  adresses$ = this.adressesSubject.asObservable();
+
   token: any;
 
   constructor(private httpClient: HttpClient) {
-    // Check if localStorage is available
     if (typeof window !== 'undefined') {
       this.token = localStorage.getItem('token');
     }
   }
 
-  getVilles() {
+  getVilles(): void {
     console.log(this.token);
-    var headers_object = new HttpHeaders({
+    const headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + localStorage.getItem('token'),
+      Authorization: 'Bearer ' + this.token,
     });
 
     const httpOptions = {
       headers: headers_object,
     };
-    return this.httpClient.get<any>(`${this.apiUrl}/Villes`, httpOptions);
+
+    this.httpClient.get<any>(`${this.apiUrl}/Villes`, httpOptions).subscribe(
+      (res) => {
+        this.villesSubject.next(res['Villes']); // Update the BehaviorSubject with the new data
+      },
+      (error) => {
+        console.error('Error fetching villes:', error);
+      }
+    );
+  }
+
+  getAddressesByCityId(ville_id): void {
+    const headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + this.token,
+    });
+
+    const httpOptions = {
+      headers: headers_object,
+    };
+
+    this.httpClient
+      .get<any>(`${this.apiUrl}/Adresses/${ville_id}`, httpOptions)
+      .subscribe(
+        (res) => {
+          this.adressesSubject.next(res['Adresse']); // Update the BehaviorSubject with the new data
+        },
+        (error) => {
+          console.error('Error fetching Adresse:', error);
+        }
+      );
   }
 
   insertVille(ville: Ville): Observable<Ville> {
-    var headers_object = new HttpHeaders({
+    const headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + localStorage.getItem('token'),
+      Authorization: 'Bearer ' + this.token,
     });
+
     const httpOptions = {
       headers: headers_object,
     };
@@ -49,7 +87,7 @@ export class VilleService {
   updateVille(id: any, data: Ville): Observable<Ville> {
     const headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + localStorage.getItem('token'),
+      Authorization: 'Bearer ' + this.token,
     });
 
     const httpOptions = {
@@ -65,7 +103,7 @@ export class VilleService {
   deleteVille(id: any): Observable<any> {
     const headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + localStorage.getItem('token'),
+      Authorization: 'Bearer ' + this.token,
     });
 
     const httpOptions = {
@@ -76,10 +114,11 @@ export class VilleService {
       httpOptions
     );
   }
+
   getVilleById(id: any): Observable<Ville> {
     const headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + localStorage.getItem('token'),
+      Authorization: 'Bearer ' + this.token,
     });
 
     const httpOptions = {
