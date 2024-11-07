@@ -25,7 +25,11 @@ export const ROUTES: RouteInfo[] = [
         title: 'Niveaux Scolaire',
         icon: 'design_bullet-list-67',
       },
-      { path: '/matiere', title: 'Matières', icon: 'files_single-copy-04' },
+      {
+        path: '/annee-scolaire',
+        title: 'Annee Scolaire',
+        icon: 'design_bullet-list-67',
+      },
     ],
   },
   {
@@ -49,6 +53,41 @@ export const ROUTES: RouteInfo[] = [
     ],
   },
   {
+    title: "Gestion d'année",
+    icon: 'users_single-02',
+    items: [
+      {
+        path: '/semestre',
+        title: 'Semestre',
+        icon: 'design_bullet-list-67',
+      },
+      { path: '/matiere', title: 'Matières', icon: 'files_single-copy-04' },
+      { path: '/groupe', title: 'Groupe', icon: 'files_single-copy-04' },
+      {
+        path: '/inscription',
+        title: 'Inscription',
+        icon: 'files_single-copy-04',
+      },
+    ],
+  },
+  {
+    title: "Gestion d'emploi",
+    icon: 'users_single-02',
+    items: [
+      {
+        path: '/seance',
+        title: 'Seance',
+        icon: 'files_paper',
+      },
+      {
+        path: '/tranche-horaire',
+        title: 'Tranches Horaire',
+        icon: 'ui-2_time-alarm',
+        class: '',
+      },
+    ],
+  },
+  {
     title: 'Suivi des Présences',
     icon: 'education_agenda-bookmark',
     items: [
@@ -56,13 +95,6 @@ export const ROUTES: RouteInfo[] = [
       { path: '/absence', title: 'Absences', icon: 'fas fa-calendar-times' },
     ],
   },
-  {
-    path: '/tranche-horaire',
-    title: 'Tranches Horaire',
-    icon: 'ui-2_time-alarm',
-    class: '',
-  },
-  { path: '/cour', title: 'Cours', icon: 'files_paper', class: '' },
 ];
 
 @Component({

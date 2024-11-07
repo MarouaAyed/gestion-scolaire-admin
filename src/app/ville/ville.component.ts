@@ -47,6 +47,6 @@ export class VilleComponent implements OnInit {
   }
 
   updateVille(id: any): void {
-    this.router.navigate(['/edit-ville', id]);
+   // this.router.navigate(['/edit-ville', id]);
   }
 }

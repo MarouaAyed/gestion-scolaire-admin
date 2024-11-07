@@ -1,8 +1,7 @@
 export class NiveauScolaire {
+  id?: number;
   code?: number;
-  titre?: string;
-  nomCourt?: string;
+  nom?: string;
   ordreTri?: number;
   classeSuperieure?: string;
-  //id_ville?:number;
 }

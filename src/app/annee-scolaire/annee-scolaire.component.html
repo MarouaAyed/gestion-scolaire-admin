@@ -7,18 +7,18 @@
           class="card-header d-flex justify-content-between align-items-center"
         >
           <div>
-            <h5 class="title">Niveaux scolaires</h5>
+            <h5 class="title">Annees scolaires</h5>
             <p class="category">
-              Résultats :{{ niveauxScolaires.length }} niveaux scolaires.
+              Résultats :{{ anneesScolaires.length }} annees scolaires.
             </p>
           </div>
           <button
             type="button"
             class="btn btn-primary"
             data-bs-toggle="modal"
-            data-bs-target="#niveauxScolaireModal"
+            data-bs-target="#anneeScolaireModal"
           >
-            Ajouter Niveaux Scolaire
+            Ajouter Annees Scolaire
           </button>
         </div>
         <div class="card-body">
@@ -26,41 +26,37 @@
             <table class="table table-striped table-hover">
               <thead class="text-primary">
                 <th class="text-center">CODE</th>
-                <th class="text-center">NOM</th>
-                <th class="text-center">ORDRE DE TRI</th>
-                <th class="text-center">CLASSE SUPERIEURE</th>
+                <th class="text-center">Start</th>
+                <th class="text-center">End</th>
 
                 <th class="text-center">ACTIONS</th>
               </thead>
 
               <tbody>
-                <tr *ngFor="let niveau of niveauxScolaires">
+                <tr *ngFor="let anneeScolaire of anneesScolaires">
                   <td>
-                    {{ niveau.code }}
+                    {{ anneeScolaire.code }}
                   </td>
                   <td class="text-center">
-                    {{ niveau.nom }}
+                    {{ anneeScolaire.start_year }}
                   </td>
                   <td class="text-center">
-                    {{ niveau.ordreTri }}
-                  </td>
-                  <td class="text-center">
-                    {{ niveau.classeSuperieure }}
+                    {{ anneeScolaire.end_year }}
                   </td>
                   <td class="text-center">
                     <button
-                      (click)="openEditModalNiveauxScolaire(niveau)"
+                      (click)="openEditModalAnneeScolaire(anneeScolaire)"
                       type="button"
                       class="btn btn-dark"
                       data-bs-toggle="modal"
-                      data-bs-target="#editNiveauxScolaireModal"
+                      data-bs-target="#editAnneeScolaireModal"
                     >
                       Modifier
                     </button>
                     <button
                       type="button"
                       class="btn btn-danger"
-                      (click)="deleteNiveauScolaire(niveau.id)"
+                      (click)="deleteNiveauScolaire(anneeScolaire.id)"
                     >
                       Supprimer
                     </button>
@@ -73,19 +69,19 @@
       </div>
     </div>
 
-    <!-- start niveauxScolaireModal -->
+    <!-- start AnneeScolaireModal -->
     <div
       class="modal fade"
-      id="niveauxScolaireModal"
+      id="anneeScolaireModal"
       tabindex="-1"
-      aria-labelledby="niveauxScolaireModalLabel"
+      aria-labelledby="anneeScolaireModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="addNiveauxScolaireModalLabel">
-              Ajouter Niveaux Scolaire
+            <h5 class="modal-title" id="addAnneeScolaireModalLabel">
+              Ajouter Annee Scolaire
             </h5>
             <button
               type="button"
@@ -95,40 +91,28 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form (ngSubmit)="insertNiveauScolaire()">
+            <form (ngSubmit)="insertAnneeScolaire()">
               <div class="row">
                 <div class="col-md-5 pr-1">
                   <div class="form-group">
-                    <label>Nom </label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      [(ngModel)]="niveauScolaire.nom"
-                      name="nom"
-                      required
-                    />
-                  </div>
-                </div>
-                <div class="col-md-5 pr-1">
-                  <div class="form-group">
-                    <label>Ordre de tri</label>
+                    <label>start year</label>
                     <input
                       type="number"
                       class="form-control"
-                      [(ngModel)]="niveauScolaire.ordreTri"
-                      name="ordreTri"
+                      [(ngModel)]="anneeScolaire.start_year"
+                      name="start_year"
                       required
                     />
                   </div>
                 </div>
                 <div class="col-md-5 pr-1">
                   <div class="form-group">
-                    <label>Classe supérieure</label>
+                    <label>end year</label>
                     <input
-                      type="text"
+                      type="number"
                       class="form-control"
-                      [(ngModel)]="niveauScolaire.classeSuperieure"
-                      name="classeSuperieure"
+                      [(ngModel)]="anneeScolaire.end_year"
+                      name="end_year"
                       required
                     />
                   </div>
@@ -156,21 +140,21 @@
         </div>
       </div>
     </div>
-    <!-- end niveauxScolaireModal -->
+    <!-- end AnneeScolaireModal -->
 
-    <!-- start EditNiveauxScolaireModal -->
+    <!-- start EdiAnneeScolaireModal -->
     <div
       class="modal fade"
-      id="editNiveauxScolaireModal"
+      id="editAnneeScolaireModal"
       tabindex="-1"
-      aria-labelledby="niveauxScolaireModalLabel"
+      aria-labelledby="anneeScolaireModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="editNiveauxScolaireModalLabel">
-              Modifier Niveaux Scolaire
+            <h5 class="modal-title" id="editAnneeScolaireModalLabel">
+              Modifier Annee Scolaire
             </h5>
             <button
               type="button"
@@ -180,41 +164,28 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form (ngSubmit)="updateNiveauxScolaire()">
+            <form (ngSubmit)="updateAnneeScolaire()">
               <div class="row">
                 <div class="col-md-5 pr-1">
                   <div class="form-group">
-                    <label>Nom </label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      [(ngModel)]="editingNiveauScolaire.nom"
-                      name="nom"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div class="col-md-5 pr-1">
-                  <div class="form-group">
-                    <label>Ordre de tri</label>
+                    <label>Start Year</label>
                     <input
                       type="number"
                       class="form-control"
-                      [(ngModel)]="editingNiveauScolaire.ordreTri"
-                      name="ordreTri"
+                      [(ngModel)]="editingAnneeScolaire.start_year"
+                      name="start_year"
                       required
                     />
                   </div>
                 </div>
                 <div class="col-md-5 pr-1">
                   <div class="form-group">
-                    <label>Classe supérieure</label>
+                    <label>End Year</label>
                     <input
-                      type="text"
+                      type="number"
                       class="form-control"
-                      [(ngModel)]="editingNiveauScolaire.classeSuperieure"
-                      name="classeSuperieure"
+                      [(ngModel)]="editingAnneeScolaire.end_year"
+                      name="end_year"
                       required
                     />
                   </div>
@@ -242,6 +213,6 @@
         </div>
       </div>
     </div>
-    <!-- end EditNiveauxScolaireModal -->
+    <!-- end EditAnneeScolaireModal -->
   </div>
 </div>

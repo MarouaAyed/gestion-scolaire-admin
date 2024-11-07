@@ -1,23 +1,23 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { Observable, of } from 'rxjs';
-import { Eleve } from '../../models/eleve/eleve.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Enseignant } from '../../models/enseignant/enseignant.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class EleveService {
-  private apiUrl = `${environment.apiUrl}/${environment.prefix}`;
+export class EnseignantService {
+  private apiUrl = `${environment.apiUrl}/${environment.prefix}/enseignants`;
   token: any;
 
   constructor(private httpClient: HttpClient) {
-    // Check if localStorage is available
     if (typeof window !== 'undefined') {
       this.token = localStorage.getItem('token');
     }
   }
-  getEleves() {
+
+  getEnseignants() {
     var headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -26,16 +26,17 @@ export class EleveService {
     const httpOptions = {
       headers: headers_object,
     };
-    return this.httpClient.get<any>(`${this.apiUrl}/eleves`, httpOptions);
+
+    return this.httpClient.get<any>(`${this.apiUrl}`, httpOptions);
   }
 
-  addEleve(eleveData: Eleve, imageFile: File | null): Observable<any> {
+  addEnseignant(enseignantData: Enseignant, imageFile: File | null): Observable<any> {
     const formData = new FormData();
 
     // Append the form data
-    for (const key in eleveData) {
-      if (eleveData[key] !== undefined) {
-        formData.append(key, eleveData[key]);
+    for (const key in enseignantData) {
+      if (enseignantData[key] !== undefined) {
+        formData.append(key, enseignantData[key]);
       }
     }
 
@@ -54,7 +55,7 @@ export class EleveService {
     };
 
     return this.httpClient.post(
-      `${this.apiUrl}/addEleve`,
+      `${this.apiUrl}`,
       formData,
       httpOptions
     );

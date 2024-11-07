@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { NiveauScolaire } from '../../models/niveau-scolaire/niveau-scolaire.model';
+import { AnneeScolaire } from '../../models/annee-scolaire/annee-scolaire.model';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
-export class NiveauScolaireService {
+export class AnneeScolaireService {
   private apiUrl = `${environment.apiUrl}/${environment.prefix}`;
   token: any;
 
@@ -18,7 +18,7 @@ export class NiveauScolaireService {
     }
   }
 
-  getNiveauxScolaires() {
+  getAnneesScolaires() {
     var headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -28,14 +28,14 @@ export class NiveauScolaireService {
       headers: headers_object,
     };
     return this.httpClient.get<any>(
-      `${this.apiUrl}/niveauxScolaires`,
+      `${this.apiUrl}/annees_scolaires`,
       httpOptions
     );
   }
 
-  insertNiveauxScolaires(
-    niveauxScolaire: NiveauScolaire
-  ): Observable<NiveauScolaire> {
+  insertAnneeScolaire(
+    anneeScolaire: AnneeScolaire
+  ): Observable<AnneeScolaire> {
     var headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -43,16 +43,18 @@ export class NiveauScolaireService {
     const httpOptions = {
       headers: headers_object,
     };
-    return this.httpClient.post<NiveauScolaire>(
-      `${this.apiUrl}/addNiveauScolaire`,
-      niveauxScolaire,
+
+    console.log('Data being sent:', anneeScolaire); // Add this log to inspect the data
+    return this.httpClient.post<AnneeScolaire>(
+      `${this.apiUrl}/annees_scolaires`,
+      anneeScolaire,
       httpOptions
     );
   }
 
-  updateNiveauxScolaires(
-    niveauScolaire: NiveauScolaire
-  ): Observable<NiveauScolaire> {
+  updateAnneeScolaire(
+    AnneeScolaire: AnneeScolaire
+  ): Observable<AnneeScolaire> {
     const headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -61,14 +63,14 @@ export class NiveauScolaireService {
     const httpOptions = {
       headers: headers_object,
     };
-    return this.httpClient.put<NiveauScolaire>(
-      `${this.apiUrl}/updateNiveauScolaire/${niveauScolaire.id}`,
-      niveauScolaire,
+    return this.httpClient.put<AnneeScolaire>(
+      `${this.apiUrl}/annees_scolaires/${AnneeScolaire.id}`,
+      AnneeScolaire,
       httpOptions
     );
   }
 
-  deleteNiveauxScolaires(id: any): Observable<any> {
+  deleteAnneeScolaire(id: any): Observable<any> {
     const headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -78,12 +80,12 @@ export class NiveauScolaireService {
       headers: headers_object,
     };
     return this.httpClient.delete<any>(
-      `${this.apiUrl}/deleteNiveauScolaire/${id}`,
+      `${this.apiUrl}/annees_scolaires/${id}`,
       httpOptions
     );
   }
 
-  getNiveauxScolairesById(id: any): Observable<NiveauScolaire> {
+  getNiveauxScolairesById(id: any): Observable<AnneeScolaire> {
     const headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -92,8 +94,8 @@ export class NiveauScolaireService {
     const httpOptions = {
       headers: headers_object,
     };
-    return this.httpClient.get<NiveauScolaire>(
-      `${this.apiUrl}/niveauScolaire/${id}`,
+    return this.httpClient.get<AnneeScolaire>(
+      `${this.apiUrl}/annees_scolaires/${id}`,
       httpOptions
     );
   }

@@ -6,75 +6,58 @@ import { NiveauScolaireService } from '../services/niveau-scolaire/niveau-scolai
 @Component({
   selector: 'app-niveau-scolaire',
   templateUrl: './niveau-scolaire.component.html',
-  styleUrls: ['./niveau-scolaire.component.scss']
+  styleUrls: ['./niveau-scolaire.component.scss'],
 })
 export class NiveauScolaireComponent implements OnInit {
-
   niveauxScolaires: any[] = [];
-  //niveauxScolaires:any;
   niveauScolaire: NiveauScolaire;
-  
-  //niveauScolaire=new NiveauScolaire();
+  editingNiveauScolaire: NiveauScolaire = new NiveauScolaire();
 
- // niveauScolaire: any = {
-  //  code: 12345 // initialisez la valeur ici
- // };
-  constructor(private niveauScolaireService:NiveauScolaireService,   private router:Router) { 
+  constructor(
+    private niveauScolaireService: NiveauScolaireService,
+    private router: Router
+  ) {
     this.niveauScolaire = new NiveauScolaire();
   }
 
   ngOnInit(): void {
- 
     this.getNiveauScolaireData();
   }
- 
-  getNiveauScolaireData(){
-    console.log('liste des Niveau Scolaire');
-    this.niveauScolaireService.getNiveauxScolaires().subscribe(res =>{
 
-      console.log(res);
-      this.niveauxScolaires = res['niveauxScolaires']; 
-    })
+  getNiveauScolaireData() {
+    this.niveauScolaireService.getNiveauxScolaires().subscribe((res) => {
+      this.niveauxScolaires = res['niveauxScolaires'];
+    });
   }
-  /*
- 
-  insertTrancheHoraire(){
-    //console.log('bonjour-insertion-test');
-    //console.log(this.product);
+  insertNiveauScolaire() {
+    this.niveauScolaireService
+      .insertNiveauxScolaires(this.niveauScolaire)
+      .subscribe((res) => {
+        this.niveauxScolaires.push(res);
+        this.niveauScolaire = new NiveauScolaire();
+      });
+  }
 
+  deleteNiveauScolaire(id: any) {
+    this.niveauScolaireService.deleteNiveauxScolaires(id).subscribe((res) => {
+      this.getNiveauScolaireData();
+    });
+  }
 
-    this.tranchehoraireService.insertTrancheHoraire(this.tranchehoraire).subscribe(res =>{
-      console.log(res);
-     // this.getProductData();
-    })
-  } */
-    insertNiveauScolaire(){
-      //console.log('bonjour-insertion-test');
-      //console.log(this.product);
-      this.niveauScolaireService.insertNiveauxScolaires(this.niveauScolaire).subscribe(res =>{
-        console.log(res);
-       // this.getProductData();
-       this.niveauxScolaires.push(res);
-      // Réinitialiser le formulaire
-      this.niveauScolaire = new NiveauScolaire();
-      })
+  // Select a NiveauScolaire to edit and open the modal
+  openEditModalNiveauxScolaire(niveauScolaire: NiveauScolaire) {
+    this.editingNiveauScolaire = { ...niveauScolaire }; // Make a copy to edit
+  }
+
+  // Update NiveauScolaire data on the server
+  updateNiveauxScolaire() {
+    if (this.editingNiveauScolaire) {
+      this.niveauScolaireService
+        .updateNiveauxScolaires(this.editingNiveauScolaire)
+        .subscribe((res) => {
+          this.getNiveauScolaireData();
+          this.editingNiveauScolaire = new NiveauScolaire();
+        });
     }
-  
-
-
-
-deleteNiveauScolaire(id:any){
-  //console.log(id);
-  this.niveauScolaireService.deleteNiveauxScolaires(id).subscribe(res =>{
-    //console.log(res);
-    this.getNiveauScolaireData();
-  })
-
+  }
 }
-
-
-updateNiveauxScolaires(id:any): void {
-  this.router.navigate(['/edit-niveau-scolaire', id]);
-}
-}
-
