@@ -3,31 +3,48 @@
 <div class="main-content">
   <div class="col-md-12">
     <div class="card">
-      <div class="card-header">
-        <h5 class="title">Elèves</h5>
-        <p class="category">Résultats : {{ eleves.length }} Elèves.</p>
+      <div
+        class="card-header d-flex justify-content-between align-items-center"
+      >
+        <div>
+          <h5 class="title">Elèves</h5>
+          <p class="category">Résultats : {{ eleves.length }} Elèves.</p>
+        </div>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#eleveModal"
+        >
+          Ajouter Eleve
+        </button>
       </div>
       <div class="card-body">
         <div class="table-responsive">
           <table class="table table-striped table-hover">
             <thead class="text-primary">
+              <th class="text-center">Numero Identification</th>
               <th class="text-center">Nom & Prénom</th>
               <th class="text-center">Email</th>
-
-              <th class="text-center">Num</th>
-
+              <th class="text-center">Genre</th>
               <th class="text-center">ACTIONS</th>
             </thead>
 
             <tbody>
               <tr *ngFor="let eleve of eleves">
+                <td>
+                  {{ eleve.numeroIdentification }}
+                </td>
                 <td>{{ eleve.nom }} {{ eleve.prenom }}</td>
                 <td>
                   {{ eleve.email }}
                 </td>
+                <td>
+                  {{ eleve.genre }}
+                </td>
 
-                <!--    <td class="text-center">
-                  <button
+                <td class="text-center">
+                  <!--   <button
                     type="button"
                     class="btn btn-dark"
                     (click)="updateRole(role.id)"
@@ -40,8 +57,11 @@
                     (click)="deleteRole(role.id)"
                   >
                     Supprimer
+                  </button>-->
+                  <button type="button" class="btn btn-primary">
+                    Inscription
                   </button>
-                </td> -->
+                </td>
               </tr>
             </tbody>
           </table>
@@ -50,15 +70,25 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <h5 class="title">Formulaire Élève</h5>
-          <p class="category">Veuillez ajouter un élève :</p>
+  <div
+    class="modal fade"
+    id="eleveModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addCityModalLabel">Formulaire Élève</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
-
-        <div class="card-body">
+        <div class="modal-body">
           <form (ngSubmit)="onSubmit()" #eleveForm="ngForm">
             <div class="row">
               <div class="col-md-5 pr-1">
@@ -145,7 +175,11 @@
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Ville</label>
-                  <select name="id_ville" class="form-control"  (change)="onCityChange($event)">
+                  <select
+                    name="id_ville"
+                    class="form-control"
+                    (change)="onCityChange($event)"
+                  >
                     <option *ngFor="let ville of villes" [value]="ville.id">
                       {{ ville.nom }}
                     </option>

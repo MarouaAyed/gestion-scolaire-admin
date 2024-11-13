@@ -58,6 +58,7 @@ export class EleveComponent implements OnInit {
       (response) => {
         console.log('Élève ajouté avec succès!', response);
         this.resetForm();
+        window.location.reload();
       },
       (error) => {
         console.error("Erreur lors de l'ajout de l'élève", error);
