@@ -1,1 +1,244 @@
-<p>groupe works!</p>
+<div class="panel-header panel-header-sm"></div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <div>
+            <h5 class="title">Groupes</h5>
+            <p class="category">Résultats : {{ groupes.length }} Groupes.</p>
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#matiereModal"
+          >
+            Ajouter Groupe
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead class="text-primary">
+                <th class="text-center">N°</th>
+                <th class="text-center">Nom</th>
+                <th class="text-center">Designation</th>
+                <th class="text-center">Niveau Semestre</th>
+
+                <th class="text-center">ACTIONS</th>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let groupe of groupes; let i = index">
+                  <td class="text-center">
+                    {{ i + 1 }}
+                  </td>
+                  <td class="text-center">
+                    {{ groupe.nom }}
+                  </td>
+                  <td class="text-center">
+                    {{ groupe.designation }}
+                  </td>
+                  <td class="text-center">
+                    {{ groupe.niveau_semestre?.niveau_scolaire?.nom }}-{{
+                      groupe.niveau_semestre?.semestre?.name
+                    }}
+                  </td>
+
+                  <td class="text-center">
+                    <!--   <button
+                      (click)="openEditModalMatiere(matiere)"
+                      class="btn btn-green"
+                      data-bs-toggle="modal"
+                      data-bs-target="#editMatiereModal"
+                    >
+                      Modifier
+                    </button> -->
+                    <!--   <button
+                      type="button"
+                      class="btn btn-danger"
+                      (click)="deleteMatiere(matiere.id)"
+                    >
+                      Supprimer
+                    </button> -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- start MatiereModal -->
+    <div
+      class="modal fade"
+      id="matiereModal"
+      tabindex="-1"
+      aria-labelledby="matiereModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addMatiereModalLabel">
+              Ajouter Groupe
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form (ngSubmit)="insertGroupe()">
+              <div class="row">
+                <div class="col-md-5 pr-1">
+                  <div class="form-group">
+                    <label>Nom Matiere</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="groupe.nom"
+                      name="nom"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-5 pr-1">
+                  <div class="form-group">
+                    <label>Designation</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="groupe.designation"
+                      name="designation"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-5 pr-1">
+                  <div class="form-group">
+                    <label>Niveau Semestre</label>
+                    <select
+                      class="form-control"
+                      [(ngModel)]="groupe.niveau_semestre_id"
+                      name="niveau_semestre_id"
+                    >
+                      <option
+                        *ngFor="let niveauSemestre of niveauSemestres"
+                        [value]="niveauSemestre.id"
+                      >
+                        {{ niveauSemestre.niveau_scolaire?.nom }} -
+                        {{ niveauSemestre.semestre?.name }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary mb-2"
+                  data-bs-dismiss="modal"
+                >
+                  Ajouter
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end matiereModal -->
+
+    <!-- start editMatiereModal -->
+    <div
+      class="modal fade"
+      id="editMatiereModal"
+      tabindex="-1"
+      aria-labelledby="editMatiereModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editMatiereModalLabel">
+              Modifier Matiere
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form (ngSubmit)="updateMatiere()">
+              <div class="row">
+                <!--  <div class="col-md-5 pr-1">
+                  <div class="form-group">
+                    <label>Nom semestre</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="editingSemestre.nom"
+                      name="nom"
+                      required
+                    />
+                  </div>
+                </div> -->
+
+                <!--     <div class="col-md-5 pr-1">
+                  <div class="form-group">
+                    <label>start_end</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      [(ngModel)]="editingSemestre.start_end"
+                      name="start_end"
+                      required
+                    />
+                  </div>
+                </div> -->
+              </div>
+
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  data-bs-dismiss="modal"
+                >
+                  Modifier
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end editMatiereModal -->
+  </div>
+</div>

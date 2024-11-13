@@ -1,0 +1,25 @@
+<div *ngIf="groupId">
+    <h3>Timetable for Group {{ groupId }}</h3>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Time Slot / Day</th>
+          <th *ngFor="let day of daysOfWeek">{{ day }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let timeSlot of timeSlots">
+          <td>{{ timeSlot }}</td>
+          <td *ngFor="let day of daysOfWeek">
+            <div *ngIf="timetable[day][timeSlot]">
+              <strong>{{ timetable[day][timeSlot]?.matiere.nom }}</strong><br />
+              Room: {{ timetable[day][timeSlot]?.salle.nom }}<br />
+              Group: {{ timetable[day][timeSlot]?.groupe.nom }}
+            </div>
+            <div *ngIf="!timetable[day][timeSlot]">-</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
