@@ -28,14 +28,10 @@ export class VilleComponent implements OnInit {
   }
 
   insertVille() {
-    //console.log('bonjour-insertion-test');
-    //console.log(this.product);
     this.villeService.insertVille(this.ville).subscribe((res) => {
       console.log(res);
-      //   this.Villes = res['Villes'];
       this.Villes.push(res);
       this.ville = new Ville();
-      // this.getProductData();
     });
   }
 

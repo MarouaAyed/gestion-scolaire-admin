@@ -46,7 +46,7 @@ export class VilleService {
     );
   }
 
-  getAddressesByCityId(ville_id): void {
+  getAddressesByCityId(ville_id: string): Observable<string[]> {
     const headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + this.token,
@@ -56,16 +56,8 @@ export class VilleService {
       headers: headers_object,
     };
 
-    this.httpClient
+    return this.httpClient
       .get<any>(`${this.apiUrl}/Adresses/${ville_id}`, httpOptions)
-      .subscribe(
-        (res) => {
-          this.adressesSubject.next(res['Adresse']); // Update the BehaviorSubject with the new data
-        },
-        (error) => {
-          console.error('Error fetching Adresse:', error);
-        }
-      );
   }
 
   insertVille(ville: Ville): Observable<Ville> {

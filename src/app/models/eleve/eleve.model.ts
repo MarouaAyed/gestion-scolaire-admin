@@ -1,4 +1,5 @@
 export class Eleve {
+  id?: number;
   code?: string;
   nom?: string;
   prenom?: string;
@@ -8,6 +9,9 @@ export class Eleve {
   dateNaissance?: Date; // Change 'date' to 'Date'
   telMobile?: number;
   genre?: string;
+  ville_id?: number;
+  address?: string;
+  adresse_id?: number;
   image?: File;
   codePostal?: number;
   numeroIdentification?: number;

@@ -1,12 +1,58 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Inscription } from '../models/inscription/inscription.model';
+import { InscriptionService } from '../services/inscription/inscription.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-inscription',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './inscription.component.html',
-  styleUrl: './inscription.component.css'
+  styleUrl: './inscription.component.css',
 })
-export class InscriptionComponent {
+export class InscriptionComponent implements OnInit {
+  inscriptions: any[] = [];
+  inscription: Inscription;
+  editingInscription: Inscription = new Inscription();
 
+  constructor(private inscriptionService: InscriptionService) {
+    this.inscription = new Inscription();
+  }
+  ngOnInit(): void {
+    this.getInscriptionData();
+  }
+
+  getInscriptionData() {
+    this.inscriptionService.getInscriptions().subscribe(
+      (data: Inscription[]) => {
+        console.log('data ',data)
+        this.inscriptions = data;
+      },
+      (error) => {
+        console.error('Error fetching Inscriptions:', error);
+      }
+    );
+  }
+
+  // Select a ville to edit and open the modal
+  /*   openEditVilleModal(ville: Ville) {
+    this.editingVille = { ...ville }; // Make a copy to edit
+  }
+
+  // Update Ville data on the server
+  updateVille() {
+    if (this.editingVille) {
+      this.villeService.updateVille(this.editingVille).subscribe((res) => {
+        this.getVilleData();
+        this.editingVille = new Ville();
+      });
+    }
+  }
+
+  deleteVille(id: any) {
+    this.villeService.deleteVille(id).subscribe((res) => {
+      this.getVilleData();
+    });
+  }  */
 }

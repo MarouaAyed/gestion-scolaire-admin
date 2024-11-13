@@ -3,8 +3,12 @@ import { Eleve } from '../models/eleve/eleve.model';
 import { EleveService } from '../services/eleve/eleve.service';
 import { Router } from 'express';
 import { Ville } from '../models/ville/ville.model';
-import { VilleComponent } from '../ville/ville.component';
 import { VilleService } from '../services/ville/ville.service';
+import { AnneeScolaire } from '../models/annee-scolaire/annee-scolaire.model';
+import { Groupe } from '../models/groupe/groupe.model';
+import { GroupeService } from '../services/groupe/groupe.service';
+import { Inscription } from '../models/inscription/inscription.model';
+import { InscriptionService } from '../services/inscription/inscription.service';
 
 @Component({
   selector: 'app-eleve',
@@ -13,12 +17,20 @@ import { VilleService } from '../services/ville/ville.service';
 })
 export class EleveComponent implements OnInit {
   villes: Ville[] = [];
+  groupes: Groupe[] = [];
+  groupe: any;
   eleves: any[] = [];
   eleve: Eleve;
-  selectedCityAddresses: string[] = []; 
+  selectedCityAddresses: string[] = [];
 
-  constructor(private eleveService: EleveService, private villeService: VilleService) {
+  constructor(
+    private eleveService: EleveService,
+    private villeService: VilleService,
+    private groupeService: GroupeService,
+    private inscriptionService: InscriptionService
+  ) {
     this.eleve = new Eleve();
+    this.groupe = '';
     this.eleve.image = undefined;
   }
 
@@ -28,6 +40,7 @@ export class EleveComponent implements OnInit {
     });
     this.villeService.getVilles(); // Fetch villes
     this.getEleves();
+    this.loadGroupes();
   }
 
   getEleves() {
@@ -37,6 +50,16 @@ export class EleveComponent implements OnInit {
     });
   }
 
+  loadGroupes(): void {
+    this.groupeService.getGroupes().subscribe(
+      (data: Groupe[]) => {
+        this.groupes = data;
+      },
+      (error) => {
+        console.error('Error fetching matieres:', error);
+      }
+    );
+  }
   onFileChange(event: any) {
     const file = event.target.files[0];
     this.eleve.image = file || undefined; // Set or reset image
@@ -48,7 +71,19 @@ export class EleveComponent implements OnInit {
   }
 
   fetchAddressesForCity(cityId: string) {
-    this.villeService.getAddressesByCityId(cityId); // Call the service method
+    this.villeService.getAddressesByCityId(cityId).subscribe(
+      (addresses: string[]) => {
+        this.selectedCityAddresses = addresses || [];
+        console.log(
+          '  this.selectedCityAddresses ',
+          this.selectedCityAddresses
+        );
+      },
+      (error) => {
+        console.error('Error fetching addresses:', error);
+        this.selectedCityAddresses = []; // Clear addresses in case of error
+      }
+    );
   }
 
   onSubmit() {
@@ -69,5 +104,18 @@ export class EleveComponent implements OnInit {
   resetForm() {
     this.eleve = new Eleve(); // Create a new instance of Eleve
     this.selectedCityAddresses = []; // Clear selected addresses when resetting the form
+  }
+
+  // Select a ville to edit and open the modal
+  openInscriptionModal(eleve: Eleve) {
+    this.eleve = { ...eleve }; // Make a copy to edit
+  }
+
+  inscriptionEleve() {
+    this.inscriptionService
+      .createInscription({ groupe_id: this.groupe, eleve_id: this.eleve.id })
+      .subscribe((res) => {
+        window.location.reload();
+      });
   }
 }
