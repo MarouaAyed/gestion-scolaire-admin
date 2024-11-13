@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class VilleComponent implements OnInit {
   Villes: any[] = [];
   ville: Ville;
+  editingVille: Ville = new Ville();
 
   constructor(private villeService: VilleService, private router: Router) {
     this.ville = new Ville();
@@ -20,7 +21,7 @@ export class VilleComponent implements OnInit {
   }
   getVilleData() {
     console.log('liste des villes');
-   this.villeService.getVilles();
+    this.villeService.getVilles();
     this.villeService.villes$.subscribe((villes) => {
       this.Villes = villes;
     });
@@ -38,15 +39,24 @@ export class VilleComponent implements OnInit {
     });
   }
 
-  deleteVille(id: any) {
-    //console.log(id);
-    this.villeService.deleteVille(id).subscribe((res) => {
-      //console.log(res);
-      this.getVilleData();
-    });
+  // Select a ville to edit and open the modal
+  openEditVilleModal(ville: Ville) {
+    this.editingVille = { ...ville }; // Make a copy to edit
   }
 
-  updateVille(id: any): void {
-   // this.router.navigate(['/edit-ville', id]);
+  // Update Ville data on the server
+  updateVille() {
+    if (this.editingVille) {
+      this.villeService.updateVille(this.editingVille).subscribe((res) => {
+        this.getVilleData();
+        this.editingVille = new Ville();
+      });
+    }
+  }
+
+  deleteVille(id: any) {
+    this.villeService.deleteVille(id).subscribe((res) => {
+      this.getVilleData();
+    });
   }
 }

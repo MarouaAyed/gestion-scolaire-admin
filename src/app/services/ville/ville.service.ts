@@ -84,7 +84,7 @@ export class VilleService {
     );
   }
 
-  updateVille(id: any, data: Ville): Observable<Ville> {
+  updateVille(ville: Ville): Observable<Ville> {
     const headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + this.token,
@@ -94,8 +94,8 @@ export class VilleService {
       headers: headers_object,
     };
     return this.httpClient.put<Ville>(
-      `${this.apiUrl}/updateVille/${id}`,
-      data,
+      `${this.apiUrl}/updateVille/${ville.id}`,
+      ville,
       httpOptions
     );
   }

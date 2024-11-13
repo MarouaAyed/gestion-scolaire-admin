@@ -36,22 +36,20 @@
                 <tr *ngFor="let ville of Villes">
                   <td>
                     {{ ville.code }}
-                    <!--{{ville.code}}-->
                   </td>
                   <td>
                     {{ ville.nom }}
-                    <!-- {{ville.role}}-->
                   </td>
                   <td class="text-center">
                     {{ ville.codePostal }}
-                    <!--{{ville.designation}}-->
                   </td>
 
                   <td class="text-center">
                     <button
-                      type="button"
-                      class="btn btn-dark"
-                      (click)="updateVille(ville.id)"
+                      (click)="openEditVilleModal(ville)"
+                      class="btn btn-green"
+                      data-bs-toggle="modal"
+                      data-bs-target="#editVilleModal"
                     >
                       Modifier
                     </button>
@@ -70,7 +68,7 @@
         </div>
       </div>
     </div>
-
+    <!-- Add Ville Model -->
     <div
       class="modal fade"
       id="exampleModal"
@@ -140,5 +138,76 @@
         </div>
       </div>
     </div>
+
+    <!-- Edit Ville Model -->
+    <div
+    class="modal fade"
+    id="editVilleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addCityModalLabel">Modifier Ville</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="updateVille()">
+            <div class="row">
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label>Nom Ville</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="editingVille.nom"
+                    name="nom"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label>Code Postal</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    [(ngModel)]="editingVille.codePostal"
+                    name="codePostal"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary mb-2"
+                data-bs-dismiss="modal"
+              >
+                Modifier
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
 </div>
