@@ -18,8 +18,6 @@ import { NiveauScolaireComponent } from '../../niveau-scolaire/niveau-scolaire.c
 import { TrancheHoraireComponent } from '../../tranche-horaire/tranche-horaire.component';
 import { EleveComponent } from '../../eleve/eleve.component';
 import { AnneeScolaireComponent } from '../../annee-scolaire/annee-scolaire.component';
-import { SemestreComponent } from '../../semestre/semestre.component';
-import { MatiereComponent } from '../../matiere/matiere.component';
 import { EnseignantComponent } from '../../enseignant/enseignant.component';
 // Other component imports...
 

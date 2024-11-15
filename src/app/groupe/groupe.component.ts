@@ -5,11 +5,12 @@ import { GroupeService } from '../services/groupe/groupe.service';
 import { NiveauSemestreService } from '../services/niveau-semestre/niveau-semestre.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TimetableGroupComponent } from '../timetable-group/timetable-group.component';
 
 @Component({
   selector: 'app-groupe',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TimetableGroupComponent],
   templateUrl: './groupe.component.html',
   styleUrl: './groupe.component.css',
 })
@@ -17,6 +18,8 @@ export class GroupeComponent {
   groupes: Groupe[] = [];
   groupe: Groupe;
   niveauSemestres: NiveauSemestre[] = [];
+  selectedGroupeId: number;
+  selectedKey: number; 
 
   constructor(
     private groupeService: GroupeService,
@@ -62,6 +65,11 @@ export class GroupeComponent {
         console.error('Error creating Groupe:', error);
       }
     );
+  }
+
+  // Fonction pour sélectionner un groupe
+  onSelectGroupe(groupeId: number): void {
+    this.selectedGroupeId = groupeId; // Définir le groupe sélectionné
   }
 
   updateMatiere(): void {

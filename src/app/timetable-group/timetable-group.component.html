@@ -1,25 +1,28 @@
-<div *ngIf="groupId">
-    <h3>Timetable for Group {{ groupId }}</h3>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Time Slot / Day</th>
-          <th *ngFor="let day of daysOfWeek">{{ day }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let timeSlot of timeSlots">
-          <td>{{ timeSlot }}</td>
-          <td *ngFor="let day of daysOfWeek">
-            <div *ngIf="timetable[day][timeSlot]">
-              <strong>{{ timetable[day][timeSlot]?.matiere.nom }}</strong><br />
-              Room: {{ timetable[day][timeSlot]?.salle.nom }}<br />
-              Group: {{ timetable[day][timeSlot]?.groupe.nom }}
-            </div>
-            <div *ngIf="!timetable[day][timeSlot]">-</div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
+<div *ngIf="emploiDuTemps.length > 0">
+  <h3>Emploi du temps pour le groupe {{ groupeId }}</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Heure</th>
+        <th *ngFor="let jour of jours"> {{ jour }} </th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Tranches horaires -->
+      <tr *ngFor="let tranche of tranchesHoraires">
+        <td>{{ tranche.heure_debut }} - {{ tranche.heure_fin }}</td>
+        <!-- Seances pour chaque jour -->
+        <td *ngFor="let jour of jours">
+          <ng-container *ngFor="let seance of getSeancesForTrancheAndJour(tranche, jour)">
+            <p>{{ seance.matiere.nom }}</p>
+            <p>{{ seance.salle.nom }}</p>
+            <p>{{ seance.matiere.enseignant.nom }}</p>            
+          </ng-container>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="emploiDuTemps.length === 0">
+  <p>Aucun emploi du temps trouvé pour ce groupe.</p>
+</div>

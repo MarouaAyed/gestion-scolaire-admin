@@ -68,11 +68,10 @@ export class SemestreComponent {
       ...this.semestre,
       niveau_ids: selectedNiveauIds, // Pass array of selected level IDs
     };
-    console.log('semestreData ', semestreData);
-    // Call the service to insert semestre
     this.semestreService.insertSemestre(semestreData).subscribe((res) => {
-      this.semestres.push(res);
-      this.semestre = new Semestre();
+     /*  this.semestres.push(res);
+      this.semestre = new Semestre(); */
+      window.location.reload();
     });
   }
 

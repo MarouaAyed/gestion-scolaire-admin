@@ -71,7 +71,8 @@ export class MatiereComponent implements OnInit {
   insertMatiere(): void {
     this.matiereService.createMatiere(this.matiere).subscribe(
       (data: Matiere) => {
-        this.matieres.push(data);
+    //    this.matieres.push(data);
+        window.location.reload();
       },
       (error) => {
         console.error('Error creating matiere:', error);

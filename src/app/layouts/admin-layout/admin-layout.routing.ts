@@ -7,7 +7,6 @@ import { TrancheHoraireComponent } from '../../tranche-horaire/tranche-horaire.c
 import { RoleComponent } from '../../role/role.component';
 import { EleveComponent } from '../../eleve/eleve.component';
 import { EcoleComponent } from '../../ecole/ecole.component';
-import { EditTrancheHoraireComponent } from '../../edit-tranche-horaire/edit-tranche-horaire.component';
 import { VilleComponent } from '../../ville/ville.component';
 import { EditEcoleComponent } from '../../edit-ecole/edit-ecole.component';
 import { SalleComponent } from '../../salle/salle.component';
@@ -32,7 +31,6 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'enseignant', component: EnseignantComponent },
   { path: 'ecole', component: EcoleComponent },
   { path: 'ville', component: VilleComponent },
-  { path: 'edit-tranche-horaire/:id', component: EditTrancheHoraireComponent },
   { path: 'edit-ecole/:id', component: EditEcoleComponent },
   { path: 'semestre', component: SemestreComponent },
   { path: 'matiere', component: MatiereComponent },

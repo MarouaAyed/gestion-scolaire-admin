@@ -1,46 +1,73 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { SeanceService } from '../services/seance/seance.service';
-import { Seance } from '../models/seance/seance.model';
+import { CommonModule } from '@angular/common';
+import { TrancheHoraire } from '../models/tranche-horaire/tranche-horaire.model';
+import { TrancheHoraireServiceService } from '../services/tranche-horaire/tranche-horaire.service';
 
 @Component({
   selector: 'app-timetable-group',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './timetable-group.component.html',
-  styleUrl: './timetable-group.component.css'
+  styleUrls: ['./timetable-group.component.css'],
 })
-export class TimetableGroupComponent {
-  @Input() groupId: number | undefined; // Input for group ID
-  daysOfWeek: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-  timeSlots: string[] = ['08:00 - 09:00', '09:00 - 10:00', '10:00 - 11:00', '11:00 - 12:00'];
-  timetable: { [key: string]: { [key: string]: Seance | null } } = {};
+export class TimetableGroupComponent implements OnChanges {
+  @Input() groupeId: number;
+  @Input() key: number;
 
-  constructor(private seanceService: SeanceService) {}
+  emploiDuTemps: any[] = [];
+  jours = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi'];
+  tranchesHoraires: TrancheHoraire[] = [];
+  constructor(
+    private seanceService: SeanceService,
+    private tranchehoraireService: TrancheHoraireServiceService
+  ) {}
 
-  ngOnInit(): void {
-    if (this.groupId) {
-      this.loadTimetableByGroup(this.groupId);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['groupeId']) {
+      const currentGroupeId = changes['groupeId'].currentValue;
+      console.log('Le groupeId a changé:', currentGroupeId);
+      this.getEmploiDuTemps(currentGroupeId);
+    }
+
+    // Vous pouvez également écouter les changements de la clé si nécessaire
+    if (changes['key']) {
+      const currentKey = changes['key'].currentValue;
+      console.log('La clé a changé:', currentKey);
     }
   }
 
-  loadTimetableByGroup(groupId: number): void {
-    this.seanceService.getSeancesByGroup(groupId).subscribe((seances: Seance[]) => {
-      this.initializeTimetable();
 
-      seances.forEach(seance => {
-        const day = seance.day;
-        const timeSlot = `${seance.trancheHoraire.start_date} - ${seance.trancheHoraire.end}`;
-        this.timetable[day][timeSlot] = seance;
-      });
+  ngOnInit(): void {
+    if (this.groupeId) {
+      this.getEmploiDuTemps(this.groupeId);
+      this.getTrancheHoraireData();
+    }
+  }
+
+  getTrancheHoraireData() {
+    this.tranchehoraireService.getTranchesHoraires().subscribe((res) => {
+      this.tranchesHoraires = res['tranchehoraires'];
     });
   }
 
-  initializeTimetable(): void {
-    this.daysOfWeek.forEach(day => {
-      this.timetable[day] = {};
-      this.timeSlots.forEach(slot => {
-        this.timetable[day][slot] = null;
+  // Fonction pour récupérer l'emploi du temps du groupe
+  getEmploiDuTemps(groupeId: number): void {
+    console.log('groupeId ', groupeId);
+    this.seanceService
+      .getEmploiDuTempsByGroupe(groupeId)
+      .subscribe((emploi) => {
+        this.emploiDuTemps = emploi;
+        console.log('Emploi du temps pour le groupe:', this.emploiDuTemps);
       });
-    });
+  }
+
+  getSeancesForTrancheAndJour(tranche, jour): any[] {
+    return this.emploiDuTemps.filter(
+      (seance) =>
+        seance.tranche_horaire.heure_debut == tranche.heure_debut &&
+        seance.tranche_horaire.heure_fin == tranche.heure_fin &&
+        seance.day == jour // Assurez-vous que votre objet `seance` a bien un champ `jour`
+    );
   }
 }
