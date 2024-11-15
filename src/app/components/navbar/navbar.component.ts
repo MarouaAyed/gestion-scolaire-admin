@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
   private sidebarVisible: boolean;
 
   public isCollapsed = true;
+  isDropdownOpen = false;
 
   constructor(
     location: Location,
@@ -30,6 +31,23 @@ export class NavbarComponent implements OnInit {
     this.sidebarVisible = false;
   }
 
+  toggleDropdown(event: Event): void {
+    event.preventDefault(); // Empêche le comportement par défaut du lien
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  closeDropdown(event: Event): void {
+    event.stopPropagation(); // Empêche la fermeture accidentelle du menu
+    this.isDropdownOpen = false;
+  }
+  logout(event: Event): void {
+    event.preventDefault(); // Empêche l'action par défaut du lien
+    this.isDropdownOpen = false;
+
+    // Ajouter ici la logique de déconnexion
+    console.log('Déconnexion déclenchée');
+  }
+  
   ngOnInit() {
     this.listTitles = ROUTES.filter((listTitle) => listTitle);
     const navbar: HTMLElement = this.element.nativeElement;
