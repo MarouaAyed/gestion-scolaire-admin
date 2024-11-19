@@ -19,7 +19,7 @@ export class GroupeComponent {
   groupe: Groupe;
   niveauSemestres: NiveauSemestre[] = [];
   selectedGroupeId: number;
-  selectedKey: number; 
+  selectedKey: number;
   editingGroupe: Groupe = new Groupe();
 
   constructor(
@@ -61,6 +61,7 @@ export class GroupeComponent {
     this.groupeService.createGroupe(this.groupe).subscribe(
       (data: Groupe) => {
         this.groupes.push(data);
+        window.location.reload();
       },
       (error) => {
         console.error('Error creating Groupe:', error);
@@ -73,31 +74,30 @@ export class GroupeComponent {
     this.selectedGroupeId = groupeId; // Définir le groupe sélectionné
   }
 
-    // Select a groupe to edit and open the modal
-    openEditModalGroupe(groupe: Groupe) {
-      this.editingGroupe = { ...groupe }; // Make a copy to edit
-    }
-  
-  
-    updateMatiere(): void {
-      /*  this.groupeService.updateMatiere(this.editingMatiere).subscribe(
-        (data: Matiere) => {
-          window.location.reload();
-        },
-        (error) => {
-          console.error('Error updating matiere:', error);
-        }
-      ); */
-    }
-  
-    deleteGroupe(id: any ): void {
-    /*   this.groupeService.deleteMatiere(id).subscribe(
-        () => {
-          this.matieres = this.matieres.filter((m) => m.id !== id);
-        },
-        (error) => {
-          console.error('Error deleting matiere:', error);
-        }
-      ); */
-    }
+  // Select a groupe to edit and open the modal
+  openEditModalGroupe(groupe: Groupe) {
+    this.editingGroupe = { ...groupe }; // Make a copy to edit
+  }
+
+  updateGroupe(): void {
+    this.groupeService.updateGroupe(this.editingGroupe).subscribe(
+      (data: Groupe) => {
+        window.location.reload();
+      },
+      (error) => {
+        console.error('Error updating Groupe:', error);
+      }
+    );
+  }
+
+  deleteGroupe(id: any): void {
+    this.groupeService.deleteGroupe(id).subscribe(
+      () => {
+        this.groupes = this.groupes.filter((m) => m.id !== id);
+      },
+      (error) => {
+        console.error('Error deleting Groupe:', error);
+      }
+    );
+  }
 }

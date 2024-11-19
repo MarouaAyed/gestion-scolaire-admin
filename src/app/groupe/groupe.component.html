@@ -127,47 +127,48 @@
         </div>
       </div>
     </div>
-    <!-- end matiereModal -->
+    <!-- end groupeModal -->
 
-    <!-- start editMatiereModal -->
-    <div class="modal fade" id="editMatiereModal" tabindex="-1" aria-labelledby="editMatiereModalLabel"
+    <!-- start editGroupeModal -->
+    <div class="modal fade" id="editGroupeModal" tabindex="-1" aria-labelledby="editGroupeModalLabel"
       aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="editMatiereModalLabel">
-              Modifier Matiere
+            <h5 class="modal-title" id="editGroupeModalLabel">
+              Modifier Groupe
             </h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form (ngSubmit)="updateMatiere()">
+            <form (ngSubmit)="updateGroupe()">
               <div class="row">
-                <!--  <div class="col-md-5 pr-1">
+                <div class="col-md-5 pr-1">
                   <div class="form-group">
-                    <label>Nom semestre</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      [(ngModel)]="editingSemestre.nom"
-                      name="nom"
-                      required
-                    />
+                    <label>Nom Groupe</label>
+                    <input type="text" class="form-control" [(ngModel)]="editingGroupe.nom" name="nom" required />
                   </div>
-                </div> -->
+                </div>
 
-                <!--     <div class="col-md-5 pr-1">
+                <div class="col-md-5 pr-1">
                   <div class="form-group">
-                    <label>start_end</label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      [(ngModel)]="editingSemestre.start_end"
-                      name="start_end"
-                      required
-                    />
+                    <label>Designation</label>
+                    <input type="text" class="form-control" [(ngModel)]="editingGroupe.designation" name="designation"
+                      required />
                   </div>
-                </div> -->
+                </div>
+
+                <div class="col-md-5 pr-1">
+                  <div class="form-group">
+                    <label>Niveau Semestre</label>
+                    <select class="form-control" [(ngModel)]="editingGroupe.niveau_semestre_id" name="niveau_semestre_id">
+                      <option *ngFor="let niveauSemestre of niveauSemestres" [value]="niveauSemestre.id">
+                        {{ niveauSemestre.niveau_scolaire?.nom }} -
+                        {{ niveauSemestre.semestre?.name }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
               </div>
 
               <div class="modal-footer">
@@ -183,6 +184,6 @@
         </div>
       </div>
     </div>
-    <!-- end editMatiereModal -->
+    <!-- end editGroupeModal -->
   </div>
 </div>
