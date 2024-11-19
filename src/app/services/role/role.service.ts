@@ -47,7 +47,7 @@ export class RoleService {
 
   
 
-  updateRole(id: any, data: Role): Observable<Role> {
+  updateRole(data: Role): Observable<Role> {
     const headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': "Bearer " + localStorage.getItem('token')
@@ -56,14 +56,8 @@ export class RoleService {
     const httpOptions = {
       headers: headers_object
     };
-    return this.httpClient.put<Role>(`${this.apiUrl}/updateRole/${id}`, data, httpOptions);
+    return this.httpClient.put<Role>(`${this.apiUrl}/updateRole/${data.id}`, data, httpOptions);
   }
-
-  
-  //updateProduct(id:any,data:Product){
-    //return this.httpClient.put('http://127.0.0.1:8000/api/updateProduct/'+id,data);
-  //}
-
 
 
 
@@ -79,12 +73,6 @@ export class RoleService {
     return this.httpClient.delete<any>(`${this.apiUrl}/deleteRole/${id}`, httpOptions);
   }
 
- 
-  //deletetData(id:any){
-    //return this.httpClient.delete('http://127.0.0.1:8000/api/deleteProduct/'+id);
-  //}
-
-
   getRoleById(id: any): Observable<Role> {
     const headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -97,8 +85,5 @@ export class RoleService {
     return this.httpClient.get<Role>(`${this.apiUrl}/role/${id}`, httpOptions);
   }
 
-  //geProductById(id:any){
-    //return this.httpClient.get('http://127.0.0.1:8000/api/product/'+id);
-  //}
 }
   

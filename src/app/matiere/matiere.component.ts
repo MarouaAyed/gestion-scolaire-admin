@@ -20,6 +20,7 @@ export class MatiereComponent implements OnInit {
   matiere: Matiere;
   enseignants: Enseignant[] = [];
   niveauSemestres: NiveauSemestre[] = []; 
+  editingMatiere: Matiere = new Matiere();
 
   constructor(
     private matiereService: MatiereService,
@@ -80,6 +81,13 @@ export class MatiereComponent implements OnInit {
     );
   }
 
+
+   // Select a ville to edit and open the modal
+   openEditModalMatiere(matiere: Matiere) {
+    this.editingMatiere = { ...matiere }; // Make a copy to edit
+  }
+
+
   updateMatiere(): void {
     /* this.matiereService.updateMatiere( this.updatedMatiere).subscribe(
       (data: Matiere) => {
@@ -92,7 +100,7 @@ export class MatiereComponent implements OnInit {
     ); */
   }
 
-  deleteMatiere(id: number): void {
+  deleteMatiere(id: any ): void {
     this.matiereService.deleteMatiere(id).subscribe(
       () => {
         this.matieres = this.matieres.filter((m) => m.id !== id);

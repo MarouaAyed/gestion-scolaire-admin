@@ -9,7 +9,7 @@
             <p class="category">Résultats : {{ groupes.length }} Groupes.</p>
           </div>
 
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#matiereModal">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#groupeModal">
             Ajouter Groupe
           </button>
         </div>
@@ -74,12 +74,12 @@
     <app-timetable-group *ngIf="selectedGroupeId" [groupeId]="selectedGroupeId"></app-timetable-group>
    <!--  <app-timetable-group [groupeId]="selectedGroupeId" [key]="selectedKey"></app-timetable-group> -->
 
-    <!-- start MatiereModal -->
-    <div class="modal fade" id="matiereModal" tabindex="-1" aria-labelledby="matiereModalLabel" aria-hidden="true">
+    <!-- start groupeModal -->
+    <div class="modal fade" id="groupeModal" tabindex="-1" aria-labelledby="groupeModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="addMatiereModalLabel">
+            <h5 class="modal-title" id="addGroupeModalLabel">
               Ajouter Groupe
             </h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -89,7 +89,7 @@
               <div class="row">
                 <div class="col-md-5 pr-1">
                   <div class="form-group">
-                    <label>Nom Matiere</label>
+                    <label>Nom Groupe</label>
                     <input type="text" class="form-control" [(ngModel)]="groupe.nom" name="nom" required />
                   </div>
                 </div>

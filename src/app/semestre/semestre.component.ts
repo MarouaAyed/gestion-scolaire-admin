@@ -7,6 +7,7 @@ import { AnneeScolaireService } from '../services/annee-scolaire/annee-scolaire.
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NiveauScolaire } from '../models/niveau-scolaire/niveau-scolaire.model';
 
 @Component({
   selector: 'app-semestre',
@@ -25,7 +26,8 @@ export class SemestreComponent {
   applyToAllLevels: boolean = false; // Checkbox state
 
   constructor(
-    private semestreService: SemestreService, private anneeScolaireService: AnneeScolaireService,
+    private semestreService: SemestreService,
+    private anneeScolaireService: AnneeScolaireService,
     private niveauScolaireService: NiveauScolaireService,
     private router: Router
   ) {
@@ -35,12 +37,12 @@ export class SemestreComponent {
   ngOnInit(): void {
     this.getSemestreData();
     this.loadNiveaux();
-    this.loadAnnees()
+    this.loadAnnees();
   }
 
   getSemestreData() {
     this.semestreService.getSemestres().subscribe((res) => {
-      console.log(res)
+      // console.log(res);
       this.semestres = res;
     });
   }
@@ -56,7 +58,6 @@ export class SemestreComponent {
     });
   }
 
-
   insertSemestre() {
     // Collect selected level IDs
     const selectedNiveauIds = this.niveaux
@@ -69,8 +70,6 @@ export class SemestreComponent {
       niveau_ids: selectedNiveauIds, // Pass array of selected level IDs
     };
     this.semestreService.insertSemestre(semestreData).subscribe((res) => {
-     /*  this.semestres.push(res);
-      this.semestre = new Semestre(); */
       window.location.reload();
     });
   }
@@ -84,16 +83,48 @@ export class SemestreComponent {
   // Select a semestre to edit and open the modal
   openEditModal(semestre: Semestre) {
     this.editingSemestre = { ...semestre }; // Make a copy to edit
+    this.initializeSelectedNiveaux(); // Initialize selected niveaux
+  }
+
+  // Initialize selected niveaux
+  initializeSelectedNiveaux() {
+    // Reset all levels to not selected
+    this.niveaux.forEach((niveau) => {
+      niveau.checked = false; // Ensure that checked is reset for each niveau
+    });
+    //console.log(this.editingSemestre, 'this.editingSemestre')
+    // Mark the niveaux in the semestre as selected
+    if (this.editingSemestre.niveau_semestres) {
+      this.editingSemestre.niveau_semestres.forEach((niveau) => {
+        const match = this.niveaux.find(
+          (n) => n.id === niveau.niveau_scolaire_id
+        );
+        if (match) {
+          match.checked = true; // Mark the matched niveau as checked
+        }
+      });
+    }
   }
 
   // Update Semestre data on the server
   updateSemestre() {
     if (this.editingSemestre) {
+      const selectedNiveauIds = this.niveaux
+        .filter((niveau) => niveau.checked)
+        .map((niveau) => niveau.id);
+
+      // Include selected levels in semestre object
+      const editingSemestreData = {
+        ...this.editingSemestre,
+        niveau_ids: selectedNiveauIds,
+      };
+
       this.semestreService
-        .updateSemestre(this.editingSemestre)
+        .updateSemestre(editingSemestreData)
         .subscribe((res) => {
           this.getSemestreData();
           this.editingSemestre = new Semestre();
+          window.location.reload();
         });
     }
   }

@@ -27,13 +27,12 @@ export class EnseignantComponent implements OnInit {
       this.villes = villes; // Get the latest villes from the service
     });
     this.villeService.getVilles(); // Fetch villes
-    this.getEleves();
+    this.getEnseignants();
   }
 
-  getEleves() {
+  getEnseignants() {
     this.enseignantService.getEnseignants().subscribe((res) => {
-      console.log(res);
-      this.enseignants = res['enseignants'];
+      this.enseignants = res;
     });
   }
 
@@ -60,7 +59,7 @@ export class EnseignantComponent implements OnInit {
         this.resetForm();
       },
       (error) => {
-        console.error("Erreur lors de l'ajout de l'élève", error);
+        console.error("Erreur lors de l'ajout de l'Enseignant", error);
       }
     );
   }

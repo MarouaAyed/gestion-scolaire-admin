@@ -98,6 +98,7 @@ export class SeanceComponent implements OnInit {
     this.seanceService.createSeance(this.seance).subscribe((res) => {
       this.seances.push(res);
       this.seance = new Seance();
+      window.location.reload();
     });
   }
 

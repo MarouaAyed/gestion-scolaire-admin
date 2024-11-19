@@ -235,31 +235,90 @@
           <div class="modal-body">
             <form (ngSubmit)="updateSemestre()">
               <div class="row">
-                <!--  <div class="col-md-5 pr-1">
+                <div class="col-md-5 pr-1">
                   <div class="form-group">
                     <label>Nom semestre</label>
                     <input
                       type="text"
                       class="form-control"
-                      [(ngModel)]="editingSemestre.nom"
-                      name="nom"
+                      [(ngModel)]="editingSemestre.name"
+                      name="name"
                       required
                     />
                   </div>
-                </div> -->
+                </div>
 
-                <!--     <div class="col-md-5 pr-1">
+                <div class="col-md-5 pr-1">
                   <div class="form-group">
-                    <label>start_end</label>
-                    <input
-                      type="number"
+                    <label>Annee Scolaire</label>
+                    <select
                       class="form-control"
-                      [(ngModel)]="editingSemestre.start_end"
-                      name="start_end"
+                      [(ngModel)]="editingSemestre.annee_scolaire_id"
+                      name="annee_scolaire_id"
+                    >
+                      <option
+                        *ngFor="let annee of anneesScolaires"
+                        [value]="annee.id"
+                      >
+                        {{ annee.start_year }} - {{ annee.end_year }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-md-5 pr-1">
+                  <div class="form-group">
+                    <label>Date de début</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      [(ngModel)]="editingSemestre.start_date"
+                      name="start_date"
                       required
                     />
                   </div>
-                </div> -->
+                </div>
+
+                <div class="col-md-5 pr-1">
+                  <div class="form-group">
+                    <label>Date de fin</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      [(ngModel)]="editingSemestre.end_date"
+                      name="end_date"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Table for Selecting Specific Levels (only visible if checkbox is unchecked) -->
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Sélectionner les niveaux</label>
+                  <table class="table table-bordered mt-2">
+                    <thead>
+                      <tr>
+                        <th>Selectionner</th>
+                        <th>Nom Niveau</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let niveau of niveaux">
+                        <td>
+                          <input
+                          type="checkbox"
+                          [(ngModel)]="niveau.checked"
+                          [name]="'niveau_' + niveau.id"
+                          [checked]="niveau.checked"
+                        />
+                        </td>
+                        <td>{{ niveau.nom }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
 
               <div class="modal-footer">

@@ -3,9 +3,23 @@
 <div class="main-content">
   <div class="col-md-12">
     <div class="card">
-      <div class="card-header">
-        <h5 class="title">Enseignants</h5>
-        <p class="category">Résultats : {{ enseignants.length }} Enseignants.</p>
+      <div
+        class="card-header d-flex justify-content-between align-items-center"
+      >
+        <div>
+          <h5 class="title">Enseignants</h5>
+          <p class="category">
+            Résultats : {{ enseignants.length }} Enseignants.
+          </p>
+        </div>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#enseignantModal"
+        >
+          Ajouter Enseignant
+        </button>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -145,7 +159,11 @@
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Ville</label>
-                  <select name="id_ville" class="form-control"  (change)="onCityChange($event)">
+                  <select
+                    name="id_ville"
+                    class="form-control"
+                    (change)="onCityChange($event)"
+                  >
                     <option *ngFor="let ville of villes" [value]="ville.id">
                       {{ ville.nom }}
                     </option>
