@@ -21,9 +21,7 @@ export class TrancheHoraireComponent implements OnInit {
     this.getTrancheHoraireData();
   }
   getTrancheHoraireData() {
-  //  console.log('liste des Tranche horaire');
     this.tranchehoraireService.getTranchesHoraires().subscribe((res) => {
-     // console.log(res);
       this.tranchehoraires = res['tranchehoraires'];
     });
   }
@@ -31,7 +29,7 @@ export class TrancheHoraireComponent implements OnInit {
     this.tranchehoraireService
       .insertTrancheHoraire(this.tranchehoraire)
       .subscribe((res) => {
-        console.log(res);
+        window.location.reload();
       });
   }
 

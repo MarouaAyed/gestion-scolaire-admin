@@ -215,31 +215,68 @@
           <div class="modal-body">
             <form (ngSubmit)="updateMatiere()">
               <div class="row">
-                <!--  <div class="col-md-5 pr-1">
+                <div class="col-md-5 pr-1">
                   <div class="form-group">
-                    <label>Nom semestre</label>
+                    <label>Nom Matiere</label>
                     <input
                       type="text"
                       class="form-control"
-                      [(ngModel)]="editingSemestre.nom"
+                      [(ngModel)]="editingMatiere.nom"
                       name="nom"
                       required
                     />
                   </div>
-                </div> -->
+                </div>
 
-                <!--     <div class="col-md-5 pr-1">
+                <div class="col-md-5 pr-1">
                   <div class="form-group">
-                    <label>start_end</label>
+                    <label>Coefficient</label>
                     <input
-                      type="number"
+                      type="text"
                       class="form-control"
-                      [(ngModel)]="editingSemestre.start_end"
-                      name="start_end"
+                      [(ngModel)]="editingMatiere.coefficient"
+                      name="coefficient"
                       required
                     />
                   </div>
-                </div> -->
+                </div>
+
+                <div class="col-md-5 pr-1">
+                  <div class="form-group">
+                    <label>Enseignant</label>
+                    <select
+                      class="form-control"
+                      [(ngModel)]="editingMatiere.enseignant_id"
+                      name="enseignant_id"
+                    >
+                      <option
+                        *ngFor="let enseignant of enseignants"
+                        [value]="enseignant.id"
+                      >
+                        {{ enseignant.nom }} {{ enseignant.prenom }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-md-5 pr-1">
+                  <div class="form-group">
+                    <label>Niveau Semestre</label>
+                    <select
+                      class="form-control"
+                      [(ngModel)]="editingMatiere.niveau_semestre_id"
+                      name="niveau_semestre_id"
+                    >
+                      <option
+                        *ngFor="let niveauSemestre of niveauSemestres"
+                        [value]="niveauSemestre.id"
+                      >
+                        {{ niveauSemestre.niveau_scolaire?.nom }} -
+                        {{ niveauSemestre.semestre?.name }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
               </div>
 
               <div class="modal-footer">

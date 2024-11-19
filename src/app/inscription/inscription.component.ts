@@ -35,24 +35,24 @@ export class InscriptionComponent implements OnInit {
     );
   }
 
-  // Select a ville to edit and open the modal
-  /*   openEditVilleModal(ville: Ville) {
-    this.editingVille = { ...ville }; // Make a copy to edit
+  // Select a Inscription to edit and open the modal
+   openEditInscriptionModal(inscription: Inscription) {
+    this.editingInscription = { ...inscription }; // Make a copy to edit
   }
 
   // Update Ville data on the server
-  updateVille() {
-    if (this.editingVille) {
+  updateInscription() {
+   /*  if (this.editingInscription) {
       this.villeService.updateVille(this.editingVille).subscribe((res) => {
         this.getVilleData();
         this.editingVille = new Ville();
       });
-    }
+    } */
   }
 
-  deleteVille(id: any) {
-    this.villeService.deleteVille(id).subscribe((res) => {
+  deleteInscription(id: any) {
+  /*   this.villeService.deleteVille(id).subscribe((res) => {
       this.getVilleData();
-    });
-  }  */
+    }); */
+  }  
 }

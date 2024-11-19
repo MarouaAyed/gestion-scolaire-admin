@@ -81,7 +81,6 @@ export class MatiereComponent implements OnInit {
     );
   }
 
-
    // Select a ville to edit and open the modal
    openEditModalMatiere(matiere: Matiere) {
     this.editingMatiere = { ...matiere }; // Make a copy to edit
@@ -89,15 +88,14 @@ export class MatiereComponent implements OnInit {
 
 
   updateMatiere(): void {
-    /* this.matiereService.updateMatiere( this.updatedMatiere).subscribe(
+  this.matiereService.updateMatiere(this.editingMatiere).subscribe(
       (data: Matiere) => {
-        const index = this.matieres.findIndex(m => m.id === id);
-        if (index !== -1) this.matieres[index] = data;
+        window.location.reload();
       },
       (error) => {
         console.error('Error updating matiere:', error);
       }
-    ); */
+    );
   }
 
   deleteMatiere(id: any ): void {

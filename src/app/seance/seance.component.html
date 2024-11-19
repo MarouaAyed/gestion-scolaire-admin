@@ -51,24 +51,25 @@
                     {{ seance.day }}
                   </td>
                   <td class="text-center">
-                    {{ seance.tranche_horaire?.heure_debut }} - {{ seance.tranche_horaire?.heure_fin }}
+                    {{ seance.tranche_horaire.heure_debut }} -
+                    {{ seance.tranche_horaire.heure_fin }}
                   </td>
                   <td class="text-center">
-                    <!--   <button
-                      (click)="openEditModalMatiere(matiere)"
+                    <button
+                      (click)="openEditModalSeance(seance)"
                       class="btn btn-green"
                       data-bs-toggle="modal"
-                      data-bs-target="#editMatiereModal"
+                      data-bs-target="#editSeanceModal"
                     >
                       Modifier
-                    </button> -->
-                    <!--   <button
+                    </button>
+                    <button
                       type="button"
                       class="btn btn-danger"
-                      (click)="deleteMatiere(matiere.id)"
+                      (click)="deleteSeance(seance.id)"
                     >
                       Supprimer
-                    </button> -->
+                    </button>
                   </td>
                 </tr>
               </tbody>

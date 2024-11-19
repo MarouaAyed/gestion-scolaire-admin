@@ -11,7 +11,17 @@ export class MatiereService {
   private apiUrl = `${environment.apiUrl}/${environment.prefix}/matieres`;
 
   constructor(private httpClient: HttpClient) {}
-  token: any = localStorage.getItem('token');
+
+   // Getter for httpOptions to be used in all API calls
+   private getHttpOptions() {
+    const token = localStorage.getItem('token');
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token ? `Bearer ${token}` : '',
+      }),
+    };
+  }
 
   getMatieres(): Observable<Matiere[]> {
     var headers_object = new HttpHeaders({
@@ -41,11 +51,11 @@ export class MatiereService {
     return this.httpClient.post<Matiere>(this.apiUrl, matiere, httpOptions);
   }
 
-  updateMatiere(id: number, matiere: Matiere): Observable<Matiere> {
-    return this.httpClient.put<Matiere>(`${this.apiUrl}/${id}`, matiere);
+  updateMatiere(matiere: Matiere): Observable<Matiere> {
+    return this.httpClient.put<Matiere>(`${this.apiUrl}/${matiere.id}`, matiere, this.getHttpOptions());
   }
 
   deleteMatiere(id: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.apiUrl}/${id}`);
+    return this.httpClient.delete<void>(`${this.apiUrl}/${id}`, this.getHttpOptions());
   }
 }

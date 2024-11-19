@@ -24,7 +24,7 @@ export class SeanceComponent implements OnInit {
   groupes: Groupe[] = [];
   matieres: Matiere[] = [];
   salles: Salle[] = [];
-  tranchehoraires: TrancheHoraire[] = [];
+  tranchehoraires: any;
   days: string[] = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
   seances: any[] = [];
@@ -88,6 +88,7 @@ export class SeanceComponent implements OnInit {
       this.salles = res['salles'];
     });
   }
+
   getTrancheHoraireData() {
     this.tranchehoraireService.getTranchesHoraires().subscribe((res) => {
       this.tranchehoraires = res['tranchehoraires'];
@@ -103,24 +104,31 @@ export class SeanceComponent implements OnInit {
   }
 
 
-  // Select a ville to edit and open the modal
-  /*  openEditVilleModal(ville: Ville) {
-    this.editingVille = { ...ville }; // Make a copy to edit
+    // Select a seance to edit and open the modal
+    openEditModalSeance(seance: Seance) {
+    this.editingSeance = { ...seance }; // Make a copy to edit
   }
 
-  // Update Ville data on the server
-  updateVille() {
-    if (this.editingVille) {
-      this.villeService.updateVille(this.editingVille).subscribe((res) => {
-        this.getVilleData();
-        this.editingVille = new Ville();
-      });
-    }
+
+  updateMatiere(): void {
+  this.matiereService.updateMatiere(this.editingSeance).subscribe(
+      (data: Matiere) => {
+        window.location.reload();
+      },
+      (error) => {
+        console.error('Error updating matiere:', error);
+      }
+    );
   }
 
-  deleteVille(id: any) {
-    this.villeService.deleteVille(id).subscribe((res) => {
-      this.getVilleData();
-    });
-  } */
+  deleteSeance(id: any ): void {
+    this.matiereService.deleteMatiere(id).subscribe(
+      () => {
+        this.matieres = this.matieres.filter((m) => m.id !== id);
+      },
+      (error) => {
+        console.error('Error deleting matiere:', error);
+      }
+    );
+  }
 }

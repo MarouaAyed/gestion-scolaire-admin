@@ -3,11 +3,23 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card">
-        <div class="card-header">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <div>
           <h5 class="title">Tranches horaires</h5>
           <p class="category">
             Résultats : {{ tranchehoraires.length }} tranches horaires.
-          </p>
+          </p> </div>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#tranchehoraireModal"
+          >
+            Ajouter Tranches horaire
+          </button>
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -58,14 +70,28 @@
       </div>
     </div>
 
-    <!--<div class="main-content">
-  <div class="row">-->
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <h4 class="card-title">Ajouter tranche horaire</h4>
-        </div>
-        <div class="card-body">
+    <!-- start tranchehoraireModal -->
+    <div
+      class="modal fade"
+      id="tranchehoraireModal"
+      tabindex="-1"
+      aria-labelledby="tranchehoraireModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addTranchehoraireModalLabel">
+              Ajouter Tranches horaire
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
           <form (ngSubmit)="insertTrancheHoraireData()">
             <div class="row">
               <div class="col-md-5 pr-1">
@@ -84,7 +110,7 @@
                 <div class="form-group">
                   <label>Heure Debut</label>
                   <input
-                    type="text"
+                    type="time"
                     class="form-control"
                     [(ngModel)]="tranchehoraire.heure_debut"
                     name="heure_debut"
@@ -97,7 +123,7 @@
                 <div class="form-group">
                   <label>Heure Fin</label>
                   <input
-                    type="number"
+                    type="time"
                     class="form-control"
                     [(ngModel)]="tranchehoraire.heure_fin"
                     name="heure_fin"

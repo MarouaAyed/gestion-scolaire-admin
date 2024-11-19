@@ -20,6 +20,7 @@ export class GroupeComponent {
   niveauSemestres: NiveauSemestre[] = [];
   selectedGroupeId: number;
   selectedKey: number; 
+  editingGroupe: Groupe = new Groupe();
 
   constructor(
     private groupeService: GroupeService,
@@ -72,26 +73,31 @@ export class GroupeComponent {
     this.selectedGroupeId = groupeId; // Définir le groupe sélectionné
   }
 
-  updateMatiere(): void {
-    /* this.matiereService.updateMatiere( this.updatedMatiere).subscribe(
-      (data: Matiere) => {
-        const index = this.matieres.findIndex(m => m.id === id);
-        if (index !== -1) this.matieres[index] = data;
-      },
-      (error) => {
-        console.error('Error updating matiere:', error);
-      }
-    ); */
-  }
-
-  /*  deleteMatiere(id: number): void {
-    this.matiereService.deleteMatiere(id).subscribe(
-      () => {
-        this.matieres = this.matieres.filter((m) => m.id !== id);
-      },
-      (error) => {
-        console.error('Error deleting matiere:', error);
-      }
-    );
-  } */
+    // Select a groupe to edit and open the modal
+    openEditModalGroupe(groupe: Groupe) {
+      this.editingGroupe = { ...groupe }; // Make a copy to edit
+    }
+  
+  
+    updateMatiere(): void {
+      /*  this.groupeService.updateMatiere(this.editingMatiere).subscribe(
+        (data: Matiere) => {
+          window.location.reload();
+        },
+        (error) => {
+          console.error('Error updating matiere:', error);
+        }
+      ); */
+    }
+  
+    deleteGroupe(id: any ): void {
+    /*   this.groupeService.deleteMatiere(id).subscribe(
+        () => {
+          this.matieres = this.matieres.filter((m) => m.id !== id);
+        },
+        (error) => {
+          console.error('Error deleting matiere:', error);
+        }
+      ); */
+    }
 }
