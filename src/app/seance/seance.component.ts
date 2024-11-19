@@ -25,7 +25,15 @@ export class SeanceComponent implements OnInit {
   matieres: Matiere[] = [];
   salles: Salle[] = [];
   tranchehoraires: any;
-  days: string[] = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+  days: string[] = [
+    'Lundi',
+    'Mardi',
+    'Mercredi',
+    'Jeudi',
+    'Vendredi',
+    'Samedi',
+    'Dimanche',
+  ];
 
   seances: any[] = [];
   seance: Seance;
@@ -50,15 +58,15 @@ export class SeanceComponent implements OnInit {
   }
 
   getSeanceData(): void {
-      this.seanceService.getSeances().subscribe(
-        (data: Seance[]) => {
-          console.log('data ', data)
-          this.seances = data;
-        },
-        (error) => {
-          console.error('Error fetching niveau seances:', error);
-        }
-      );
+    this.seanceService.getSeances().subscribe(
+      (data: Seance[]) => {
+        console.log('data ', data);
+        this.seances = data;
+      },
+      (error) => {
+        console.error('Error fetching niveau seances:', error);
+      }
+    );
   }
 
   loadGroupes(): void {
@@ -103,31 +111,29 @@ export class SeanceComponent implements OnInit {
     });
   }
 
-
-    // Select a seance to edit and open the modal
-    openEditModalSeance(seance: Seance) {
+  // Select a seance to edit and open the modal
+  openEditModalSeance(seance: Seance) {
     this.editingSeance = { ...seance }; // Make a copy to edit
   }
 
-
-  updateMatiere(): void {
-  this.matiereService.updateMatiere(this.editingSeance).subscribe(
-      (data: Matiere) => {
+  updateSeance(): void {
+    this.seanceService.updateSeance(this.editingSeance).subscribe(
+      (data: Seance) => {
         window.location.reload();
       },
       (error) => {
-        console.error('Error updating matiere:', error);
+        console.error('Error updating Seance:', error);
       }
     );
   }
 
-  deleteSeance(id: any ): void {
-    this.matiereService.deleteMatiere(id).subscribe(
+  deleteSeance(id: any): void {
+    this.seanceService.deleteSeance(id).subscribe(
       () => {
-        this.matieres = this.matieres.filter((m) => m.id !== id);
+        this.seances = this.seances.filter((m) => m.id !== id);
       },
       (error) => {
-        console.error('Error deleting matiere:', error);
+        console.error('Error deleting Seance:', error);
       }
     );
   }

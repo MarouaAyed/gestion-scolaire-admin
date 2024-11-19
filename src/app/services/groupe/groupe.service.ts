@@ -5,15 +5,15 @@ import { Groupe } from '../../models/groupe/groupe.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GroupeService {
   private apiUrl = `${environment.apiUrl}/${environment.prefix}/groupes`;
 
   constructor(private httpClient: HttpClient) {}
 
-   // Getter for httpOptions to be used in all API calls
-   private getHttpOptions() {
+  // Getter for httpOptions to be used in all API calls
+  private getHttpOptions() {
     const token = localStorage.getItem('token');
     return {
       headers: new HttpHeaders({
@@ -52,11 +52,17 @@ export class GroupeService {
   }
 
   updateGroupe(groupe: Groupe): Observable<Groupe> {
-    return this.httpClient.put<Groupe>(`${this.apiUrl}/${groupe.id}`, groupe, this.getHttpOptions());
+    return this.httpClient.put<Groupe>(
+      `${this.apiUrl}/${groupe.id}`,
+      groupe,
+      this.getHttpOptions()
+    );
   }
 
   deleteGroupe(id: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.apiUrl}/${id}`, this.getHttpOptions());
+    return this.httpClient.delete<void>(
+      `${this.apiUrl}/${id}`,
+      this.getHttpOptions()
+    );
   }
-
 }

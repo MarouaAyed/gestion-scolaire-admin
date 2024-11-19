@@ -11,7 +11,16 @@ export class SeanceService {
   private apiUrl = `${environment.apiUrl}/${environment.prefix}/seances`;
 
   constructor(private httpClient: HttpClient) {}
-  token: any = localStorage.getItem('token');
+  // Getter for httpOptions to be used in all API calls
+  private getHttpOptions() {
+    const token = localStorage.getItem('token');
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token ? `Bearer ${token}` : '',
+      }),
+    };
+  }
 
   getEmploiDuTempsByGroupe(groupId: number): Observable<Seance[]> {
     var headers_object = new HttpHeaders({
@@ -21,7 +30,10 @@ export class SeanceService {
     const httpOptions = {
       headers: headers_object,
     };
-    return this.httpClient.get<Seance[]>(`${this.apiUrl}/groupe/${groupId}`, httpOptions);
+    return this.httpClient.get<Seance[]>(
+      `${this.apiUrl}/groupe/${groupId}`,
+      httpOptions
+    );
   }
 
   getSeances(): Observable<Seance[]> {
@@ -52,11 +64,18 @@ export class SeanceService {
     return this.httpClient.post<Seance>(this.apiUrl, seance, httpOptions);
   }
 
-  updateSeance(id: number, seance: Seance): Observable<Seance> {
-    return this.httpClient.put<Seance>(`${this.apiUrl}/${id}`, seance);
+  updateSeance(seance: Seance): Observable<Seance> {
+    return this.httpClient.put<Seance>(
+      `${this.apiUrl}/${seance.id}`,
+      seance,
+      this.getHttpOptions()
+    );
   }
 
   deleteSeance(id: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.apiUrl}/${id}`);
+    return this.httpClient.delete<void>(
+      `${this.apiUrl}/${id}`,
+      this.getHttpOptions()
+    );
   }
 }

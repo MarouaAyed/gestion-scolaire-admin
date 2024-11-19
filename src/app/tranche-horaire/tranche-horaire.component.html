@@ -7,10 +7,11 @@
           class="card-header d-flex justify-content-between align-items-center"
         >
           <div>
-          <h5 class="title">Tranches horaires</h5>
-          <p class="category">
-            Résultats : {{ tranchehoraires.length }} tranches horaires.
-          </p> </div>
+            <h5 class="title">Tranches horaires</h5>
+            <p class="category">
+              Résultats : {{ tranchehoraires.length }} tranches horaires.
+            </p>
+          </div>
 
           <button
             type="button"
@@ -48,9 +49,10 @@
                   </td>
                   <td class="text-center">
                     <button
-                      type="button"
-                      class="btn btn-dark"
-                      (click)="updateTrancheHoraire(tranche.id)"
+                    (click)="openEditModalTrancheHoraire(tranche)"
+                    class="btn btn-green"
+                    data-bs-toggle="modal"
+                    data-bs-target="#editTranchehoraireModal"
                     >
                       Modifier
                     </button>
@@ -92,55 +94,132 @@
             ></button>
           </div>
           <div class="modal-body">
-          <form (ngSubmit)="insertTrancheHoraireData()">
-            <div class="row">
-              <div class="col-md-5 pr-1">
-                <div class="form-group">
-                  <label>Titre</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    [(ngModel)]="tranchehoraire.titre"
-                    name="titre"
-                    required
-                  />
+            <form (ngSubmit)="insertTrancheHoraireData()">
+              <div class="row">
+                <div class="col-md-5 pr-1">
+                  <div class="form-group">
+                    <label>Titre</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="tranchehoraire.titre"
+                      name="titre"
+                      required
+                    />
+                  </div>
                 </div>
-              </div>
-              <div class="col-md-5 pr-1">
-                <div class="form-group">
-                  <label>Heure Debut</label>
-                  <input
-                    type="time"
-                    class="form-control"
-                    [(ngModel)]="tranchehoraire.heure_debut"
-                    name="heure_debut"
-                    required
-                  />
+                <div class="col-md-5 pr-1">
+                  <div class="form-group">
+                    <label>Heure Debut</label>
+                    <input
+                      type="time"
+                      class="form-control"
+                      [(ngModel)]="tranchehoraire.heure_debut"
+                      name="heure_debut"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-5 pr-1">
+                  <div class="form-group">
+                    <label>Heure Fin</label>
+                    <input
+                      type="time"
+                      class="form-control"
+                      [(ngModel)]="tranchehoraire.heure_fin"
+                      name="heure_fin"
+                      required
+                    />
+                  </div>
                 </div>
               </div>
 
-              <div class="col-md-5 pr-1">
-                <div class="form-group">
-                  <label>Heure Fin</label>
-                  <input
-                    type="time"
-                    class="form-control"
-                    [(ngModel)]="tranchehoraire.heure_fin"
-                    name="heure_fin"
-                    required
-                  />
+              <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                  <button type="submit" class="btn btn-primary mb-2">
+                    Ajouter
+                  </button>
                 </div>
               </div>
-            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
-            <div class="row">
-              <div class="col-12 d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary mb-2">
-                  Ajouter
-                </button>
+    <!-- start editTranchehoraireModal -->
+    <div
+      class="modal fade"
+      id="editTranchehoraireModal"
+      tabindex="-1"
+      aria-labelledby="editTranchehoraireModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editTranchehoraireModalLabel">
+              Modifier Tranches horaire
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form (ngSubmit)="updateTrancheHoraire()">
+              <div class="row">
+                <div class="col-md-5 pr-1">
+                  <div class="form-group">
+                    <label>Titre</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="editingTrancheHoraire.titre"
+                      name="titre"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="col-md-5 pr-1">
+                  <div class="form-group">
+                    <label>Heure Debut</label>
+                    <input
+                      type="time"
+                      class="form-control"
+                      [(ngModel)]="editingTrancheHoraire.heure_debut"
+                      name="heure_debut"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-5 pr-1">
+                  <div class="form-group">
+                    <label>Heure Fin</label>
+                    <input
+                      type="time"
+                      class="form-control"
+                      [(ngModel)]="editingTrancheHoraire.heure_fin"
+                      name="heure_fin"
+                      required
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-          </form>
+
+              <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                  <button type="submit" class="btn btn-primary mb-2">
+                    Modifier
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

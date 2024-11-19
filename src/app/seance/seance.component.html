@@ -209,21 +209,21 @@
         </div>
       </div>
     </div>
-    <!-- end matiereModal -->
+    <!-- end seanceModal -->
 
-    <!-- start editMatiereModal -->
-    <!--  <div
+    <!-- start editSeanceModal -->
+    <div
       class="modal fade"
-      id="editMatiereModal"
+      id="editSeanceModal"
       tabindex="-1"
-      aria-labelledby="editMatiereModalLabel"
+      aria-labelledby="editSeanceModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="editMatiereModalLabel">
-              Modifier Matiere
+            <h5 class="modal-title" id="editSeanceModalLabel">
+              Modifier Seance
             </h5>
             <button
               type="button"
@@ -233,34 +233,92 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form (ngSubmit)="updateMatiere()">
+            <form (ngSubmit)="updateSeance()">
               <div class="row">
-                <!--  <div class="col-md-5 pr-1">
+                <div class="col-md-5 pr-1">
                   <div class="form-group">
-                    <label>Nom semestre</label>
-                    <input
-                      type="text"
+                    <label>Groupe</label>
+                    <select
                       class="form-control"
-                      [(ngModel)]="editingSemestre.nom"
-                      name="nom"
-                      required
-                    />
+                      [(ngModel)]="editingSeance.groupe_id"
+                      name="groupe_id"
+                    >
+                      <option
+                        *ngFor="let groupe of groupes"
+                        [value]="groupe.id"
+                      >
+                        {{ groupe.nom }}
+                      </option>
+                    </select>
                   </div>
-                </div> -->
+                </div>
 
-    <!--     <div class="col-md-5 pr-1">
+                <div class="col-md-5 pr-1">
                   <div class="form-group">
-                    <label>start_end</label>
-                    <input
-                      type="number"
+                    <label>Matiere</label>
+                    <select
                       class="form-control"
-                      [(ngModel)]="editingSemestre.start_end"
-                      name="start_end"
-                      required
-                    />
+                      [(ngModel)]="editingSeance.matiere_id"
+                      name="matiere_id"
+                    >
+                      <option
+                        *ngFor="let matiere of matieres"
+                        [value]="matiere.id"
+                      >
+                        {{ matiere.nom }}
+                      </option>
+                    </select>
                   </div>
-                </div> -->
-    <!-- </div>
+                </div>
+
+                <div class="col-md-5 pr-1">
+                  <div class="form-group">
+                    <label>Salle</label>
+                    <select
+                      class="form-control"
+                      [(ngModel)]="editingSeance.salle_id"
+                      name="salle_id"
+                    >
+                      <option *ngFor="let salle of salles" [value]="salle.id">
+                        {{ salle.nom }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-5 pr-1">
+                  <div class="form-group">
+                    <label>Jour</label>
+                    <select
+                      class="form-control"
+                      [(ngModel)]="editingSeance.day"
+                      name="day"
+                    >
+                      <option *ngFor="let jour of days" [value]="jour">
+                        {{ jour }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-md-5 pr-1">
+                  <div class="form-group">
+                    <label>Tranche Horaire</label>
+                    <select
+                      class="form-control"
+                      [(ngModel)]="editingSeance.tranche_horaire_id"
+                      name="tranche_horaire_id"
+                    >
+                      <option
+                        *ngFor="let tranchehoraire of tranchehoraires"
+                        [value]="tranchehoraire.id"
+                      >
+                        {{ tranchehoraire.heure_debut }} -
+                        {{ tranchehoraire.heure_fin }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
 
               <div class="modal-footer">
                 <button
@@ -282,7 +340,7 @@
           </div>
         </div>
       </div>
-    </div> -->
-    <!-- end editMatiereModal -->
+    </div>
+    <!-- end editSeanceModal -->
   </div>
 </div>
