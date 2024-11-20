@@ -7,62 +7,41 @@ import { Ville } from '../models/ville/ville.model';
 @Component({
   selector: 'app-ecole',
   templateUrl: './ecole.component.html',
-  styleUrls: ['./ecole.component.scss']
+  styleUrls: ['./ecole.component.scss'],
 })
 export class EcoleComponent implements OnInit {
-
-  ecoles :any[]=[];
-  ecole : Ecole;
+  ecole: Ecole;
   villes: Ville[] = [];
 
-  constructor(private ecoleService:EcoleService,   private router:Router) { 
-    this.ecole=new Ecole();
-  }
+  constructor(private ecoleService: EcoleService) {}
 
   ngOnInit(): void {
-    this.getEleveData();
+    this.getEcoleData();
     this.getVillesData();
   }
 
-  getEleveData(){
-   // console.log('liste des ecoles');
-    this.ecoleService.getEcoles().subscribe(res =>{
-
-    //  console.log(res);
-      this.ecoles = res['Ecoles']; 
-    })
-  }
-
-  getVillesData() {
-    this.ecoleService.getVilles().subscribe(res => {
-    //  console.log(res);
-      this.villes = res['Villes'];
-    //  console.log('villes   '+this.villes);
+  getEcoleData() {
+    this.ecoleService.getEcole().subscribe((res) => {
+   //   console.log(res);
+      this.ecole = res['Ecole'];
     });
   }
 
-
-  insertEcole(){
-    //console.log('bonjour-insertion-test');
-
-    ///
-    console.log('insert    '+JSON.stringify(this.ecole) );
-    this.ecoleService.insertEcole(this.ecole).subscribe(res =>{
-     
-      this.getEleveData();
-    })
+  getVillesData() {
+    this.ecoleService.getVilles().subscribe((res) => {
+      //  console.log(res);
+      this.villes = res['Villes'];
+      //  console.log('villes   '+this.villes);
+    });
   }
-  deleteEcole(id:any){
-    //console.log(id);
-    this.ecoleService.deleteEcole(id).subscribe(res =>{
-      //console.log(res);
-      this.getEleveData();
-    })
-  
+
+  updateEcole(): void {
+    if (this.ecole) {
+      this.ecoleService
+        .updateEcole(this.ecole)
+        .subscribe((res) => {
+          window.location.reload();
+        });
+    }
   }
- updateEcole(id:any): void {
-  console.log('update ecole'+id);
-    this.router.navigate(['/edit-ecole', id]);}
 }
-
-

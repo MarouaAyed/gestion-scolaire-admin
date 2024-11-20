@@ -3,6 +3,8 @@ import { Inscription } from '../models/inscription/inscription.model';
 import { InscriptionService } from '../services/inscription/inscription.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Groupe } from '../models/groupe/groupe.model';
+import { GroupeService } from '../services/groupe/groupe.service';
 
 @Component({
   selector: 'app-inscription',
@@ -12,15 +14,28 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './inscription.component.css',
 })
 export class InscriptionComponent implements OnInit {
+  groupes: Groupe[] = [];
   inscriptions: any[] = [];
   inscription: Inscription;
   editingInscription: Inscription = new Inscription();
 
-  constructor(private inscriptionService: InscriptionService) {
+  constructor(private inscriptionService: InscriptionService, private groupeService: GroupeService,) {
     this.inscription = new Inscription();
   }
   ngOnInit(): void {
     this.getInscriptionData();
+    this.loadGroupes()
+  }
+
+  loadGroupes(): void {
+    this.groupeService.getGroupes().subscribe(
+      (data: Groupe[]) => {
+        this.groupes = data;
+      },
+      (error) => {
+        console.error('Error fetching matieres:', error);
+      }
+    );
   }
 
   getInscriptionData() {
@@ -38,21 +53,22 @@ export class InscriptionComponent implements OnInit {
   // Select a Inscription to edit and open the modal
    openEditInscriptionModal(inscription: Inscription) {
     this.editingInscription = { ...inscription }; // Make a copy to edit
+    console.log(this.editingInscription)
   }
 
-  // Update Ville data on the server
   updateInscription() {
-   /*  if (this.editingInscription) {
-      this.villeService.updateVille(this.editingVille).subscribe((res) => {
-        this.getVilleData();
-        this.editingVille = new Ville();
+    if (this.editingInscription) {
+      this.inscriptionService.updateInscription(this.editingInscription).subscribe((res) => {
+        this.getInscriptionData();
+        this.editingInscription = new Inscription();
+        window.location.reload();
       });
-    } */
+    } 
   }
 
   deleteInscription(id: any) {
-  /*   this.villeService.deleteVille(id).subscribe((res) => {
-      this.getVilleData();
-    }); */
+     this.inscriptionService.deleteInscription(id).subscribe((res) => {
+      this.getInscriptionData();
+    }); 
   }  
 }

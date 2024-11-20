@@ -38,12 +38,6 @@ export class NiveauScolaireComponent implements OnInit {
       });
   }
 
-  deleteNiveauScolaire(id: any) {
-    this.niveauScolaireService.deleteNiveauxScolaires(id).subscribe((res) => {
-      this.getNiveauScolaireData();
-    });
-  }
-
   // Select a NiveauScolaire to edit and open the modal
   openEditModalNiveauxScolaire(niveauScolaire: NiveauScolaire) {
     this.editingNiveauScolaire = { ...niveauScolaire }; // Make a copy to edit
@@ -59,5 +53,11 @@ export class NiveauScolaireComponent implements OnInit {
           this.editingNiveauScolaire = new NiveauScolaire();
         });
     }
+  }
+
+  deleteNiveauScolaire(id: any) {
+    this.niveauScolaireService.deleteNiveauxScolaires(id).subscribe((res) => {
+      this.getNiveauScolaireData();
+    });
   }
 }

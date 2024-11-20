@@ -15,9 +15,13 @@ export class EnseignantComponent implements OnInit {
   villes: Ville[] = [];
   enseignants: any[] = [];
   enseignant: Enseignant;
-  selectedCityAddresses: string[] = []; 
+  selectedCityAddresses: string[] = [];
+  editingEnseignant: Enseignant = new Enseignant();
 
-  constructor(private enseignantService: EnseignantService, private villeService: VilleService) {
+  constructor(
+    private enseignantService: EnseignantService,
+    private villeService: VilleService
+  ) {
     this.enseignant = new Enseignant();
     this.enseignant.image = undefined;
   }
@@ -57,6 +61,7 @@ export class EnseignantComponent implements OnInit {
       (response) => {
         console.log('Enseignant ajouté avec succès!', response);
         this.resetForm();
+        window.location.reload();
       },
       (error) => {
         console.error("Erreur lors de l'ajout de l'Enseignant", error);
@@ -65,7 +70,29 @@ export class EnseignantComponent implements OnInit {
   }
 
   resetForm() {
-    this.enseignant = new Enseignant(); 
+    this.enseignant = new Enseignant();
     this.selectedCityAddresses = [];
+  }
+
+  // Select a Enseignant to edit and open the modal
+  openEditModalEnseignant(enseignant: Enseignant) {
+    this.editingEnseignant = { ...enseignant }; // Make a copy to edit
+  }
+
+  // Update Enseignant data on the server
+  updateEnseignant() {
+    if (this.editingEnseignant) {
+      this.enseignantService.updateEnseignant(this.editingEnseignant).subscribe((res) => {
+        this.getEnseignants();
+        this.editingEnseignant = new Enseignant();
+        window.location.reload();
+      });
+    }
+  }
+
+  deleteEnseignant(id: any) {
+    this.enseignantService.deleteEnseignant(id).subscribe((res) => {
+      this.getEnseignants();
+    });
   }
 }

@@ -8,7 +8,6 @@ import { RoleComponent } from '../../role/role.component';
 import { EleveComponent } from '../../eleve/eleve.component';
 import { EcoleComponent } from '../../ecole/ecole.component';
 import { VilleComponent } from '../../ville/ville.component';
-import { EditEcoleComponent } from '../../edit-ecole/edit-ecole.component';
 import { SalleComponent } from '../../salle/salle.component';
 import { AnneeScolaireComponent } from '../../annee-scolaire/annee-scolaire.component';
 import { SemestreComponent } from '../../semestre/semestre.component';
@@ -31,7 +30,6 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'enseignant', component: EnseignantComponent },
   { path: 'ecole', component: EcoleComponent },
   { path: 'ville', component: VilleComponent },
-  { path: 'edit-ecole/:id', component: EditEcoleComponent },
   { path: 'semestre', component: SemestreComponent },
   { path: 'matiere', component: MatiereComponent },
   { path: 'groupe', component: GroupeComponent },

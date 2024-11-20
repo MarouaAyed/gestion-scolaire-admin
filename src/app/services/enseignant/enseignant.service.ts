@@ -9,12 +9,17 @@ import { Observable } from 'rxjs';
 })
 export class EnseignantService {
   private apiUrl = `${environment.apiUrl}/${environment.prefix}/enseignants`;
-  token: any;
 
-  constructor(private httpClient: HttpClient) {
-    if (typeof window !== 'undefined') {
-      this.token = localStorage.getItem('token');
-    }
+  constructor(private httpClient: HttpClient) {}
+  // Getter for httpOptions to be used in all API calls
+  private getHttpOptions() {
+    const token = localStorage.getItem('token');
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token ? `Bearer ${token}` : '',
+      }),
+    };
   }
 
   getEnseignants() {
@@ -30,7 +35,10 @@ export class EnseignantService {
     return this.httpClient.get<any>(`${this.apiUrl}`, httpOptions);
   }
 
-  addEnseignant(enseignantData: Enseignant, imageFile: File | null): Observable<any> {
+  addEnseignant(
+    enseignantData: Enseignant,
+    imageFile: File | null
+  ): Observable<any> {
     const formData = new FormData();
 
     // Append the form data
@@ -54,10 +62,21 @@ export class EnseignantService {
       headers: headers_object,
     };
 
-    return this.httpClient.post(
-      `${this.apiUrl}`,
-      formData,
-      httpOptions
+    return this.httpClient.post(`${this.apiUrl}`, formData, httpOptions);
+  }
+
+  updateEnseignant(eleve: Enseignant): Observable<Enseignant> {
+    return this.httpClient.put<Enseignant>(
+      `${this.apiUrl}/${eleve.id}`,
+      eleve,
+      this.getHttpOptions()
+    );
+  }
+
+  deleteEnseignant(id: number): Observable<void> {
+    return this.httpClient.delete<void>(
+      `${this.apiUrl}/${id}`,
+      this.getHttpOptions()
     );
   }
 }

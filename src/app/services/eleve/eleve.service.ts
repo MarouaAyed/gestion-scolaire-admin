@@ -8,15 +8,22 @@ import { Eleve } from '../../models/eleve/eleve.model';
   providedIn: 'root',
 })
 export class EleveService {
-  private apiUrl = `${environment.apiUrl}/${environment.prefix}`;
+  private apiUrl = `${environment.apiUrl}/${environment.prefix}/eleves`;
   token: any;
 
-  constructor(private httpClient: HttpClient) {
-    // Check if localStorage is available
-    if (typeof window !== 'undefined') {
-      this.token = localStorage.getItem('token');
-    }
+  constructor(private httpClient: HttpClient) {}
+
+  // Getter for httpOptions to be used in all API calls
+  private getHttpOptions() {
+    const token = localStorage.getItem('token');
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: token ? `Bearer ${token}` : '',
+      }),
+    };
   }
+
   getEleves() {
     var headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -26,7 +33,7 @@ export class EleveService {
     const httpOptions = {
       headers: headers_object,
     };
-    return this.httpClient.get<any>(`${this.apiUrl}/eleves`, httpOptions);
+    return this.httpClient.get<any>(`${this.apiUrl}`, httpOptions);
   }
 
   addEleve(eleveData: Eleve, imageFile: File | null): Observable<any> {
@@ -54,9 +61,24 @@ export class EleveService {
     };
 
     return this.httpClient.post(
-      `${this.apiUrl}/addEleve`,
+      `${this.apiUrl}`,
       formData,
       httpOptions
+    );
+  }
+
+  updateEleve(eleve: Eleve): Observable<Eleve> {
+    return this.httpClient.put<Eleve>(
+      `${this.apiUrl}/${eleve.id}`,
+      eleve,
+      this.getHttpOptions()
+    );
+  }
+
+  deleteEleve(id: number): Observable<void> {
+    return this.httpClient.delete<void>(
+      `${this.apiUrl}/${id}`,
+      this.getHttpOptions()
     );
   }
 }

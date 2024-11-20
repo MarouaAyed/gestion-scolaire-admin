@@ -13,7 +13,10 @@ export class EcoleService {
   private apiUrl = `${environment.apiUrl}/${environment.prefix}`;
   token: any;
 
-  constructor(private httpClient: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(
+    private httpClient: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
     // Check if localStorage is available and set the token
     if (isPlatformBrowser(this.platformId)) {
       this.token = localStorage.getItem('token');
@@ -22,8 +25,7 @@ export class EcoleService {
     }
   }
 
-  getEcoles(): Observable<any> {
-    console.log("in getEcoles ", this.token);
+  getEcole(): Observable<any> {
     const headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${this.token}`, // Use the token retrieved in the constructor
@@ -32,7 +34,7 @@ export class EcoleService {
     const httpOptions = {
       headers: headers_object,
     };
-    return this.httpClient.get<any>(`${this.apiUrl}/ecoles`, httpOptions);
+    return this.httpClient.get<any>(`${this.apiUrl}/ecole`, httpOptions);
   }
 
   insertEcole(ecole: Ecole): Observable<Ecole> {
@@ -50,7 +52,7 @@ export class EcoleService {
     );
   }
 
-  updateEcole(id: any, data: Ecole): Observable<Ecole> {
+  updateEcole(data: Ecole): Observable<Ecole> {
     const headers_object = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -60,7 +62,7 @@ export class EcoleService {
       headers: headers_object,
     };
     return this.httpClient.put<Ecole>(
-      `${this.apiUrl}/updateEcole/${id}`,
+      `${this.apiUrl}/updateEcole/${data.id}`,
       data,
       httpOptions
     );

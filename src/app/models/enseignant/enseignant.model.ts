@@ -1,3 +1,5 @@
+import { Matiere } from "../matiere/matiere.model";
+
 export class Enseignant {
     id?: number;
     code?: string;
@@ -12,4 +14,5 @@ export class Enseignant {
     image?: File;
     codePostal?: number;
     numeroIdentification?: number;
+    matiere?:Matiere
 }

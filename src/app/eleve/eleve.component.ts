@@ -22,6 +22,7 @@ export class EleveComponent implements OnInit {
   eleves: any[] = [];
   eleve: Eleve;
   selectedCityAddresses: string[] = [];
+  editingEleve: Eleve = new Eleve();
 
   constructor(
     private eleveService: EleveService,
@@ -63,6 +64,7 @@ export class EleveComponent implements OnInit {
   onFileChange(event: any) {
     const file = event.target.files[0];
     this.eleve.image = file || undefined; // Set or reset image
+    this.editingEleve.image = file || undefined; // Set or reset image
   }
 
   onCityChange(event: any) {
@@ -118,4 +120,28 @@ export class EleveComponent implements OnInit {
         window.location.reload();
       });
   }
+
+    // Select a Eleve to edit and open the modal
+    openEditModalEleve(eleve: Eleve) {
+      this.editingEleve = { ...eleve }; // Make a copy to edit
+    }
+  
+    // Update Eleve data on the server
+    updateEleve() {
+      if (this.editingEleve) {
+        this.eleveService
+          .updateEleve(this.editingEleve)
+          .subscribe((res) => {
+            this.getEleves();
+            this.editingEleve = new Eleve();
+            window.location.reload();
+          });
+      }
+    }
+  
+    deleteEleve(id: any) {
+      this.eleveService.deleteEleve(id).subscribe((res) => {
+        this.getEleves();
+      });
+    }
 }

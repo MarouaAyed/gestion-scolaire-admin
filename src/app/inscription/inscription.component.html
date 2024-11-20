@@ -8,7 +8,9 @@
         >
           <div>
             <h5 class="title">Inscriptions</h5>
-            <p class="category">Résultats : {{ inscriptions.length }} Inscriptions.</p>
+            <p class="category">
+              Résultats : {{ inscriptions.length }} Inscriptions.
+            </p>
           </div>
         </div>
         <div class="card-body">
@@ -40,8 +42,8 @@
                     {{ inscription.groupe.nom }}
                   </td>
                   <td class="text-center">
-                    {{ inscription.created_at | date:'dd/MM/yyyy' }}
-                </td>
+                    {{ inscription.created_at | date : "dd/MM/yyyy" }}
+                  </td>
 
                   <td class="text-center">
                     <button
@@ -51,18 +53,67 @@
                       data-bs-target="#editInscriptionModal"
                     >
                       Modifier
-                    </button>  <button
+                    </button>
+                    <button
                       type="button"
                       class="btn btn-danger"
                       (click)="deleteInscription(inscription.id)"
                     >
                       Supprimer
-                    </button> 
+                    </button>
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Inscription Model -->
+  <div
+    class="modal fade"
+    id="editInscriptionModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editInscriptionModalLabel">
+            Update Inscription de l'eleve {{ editingInscription.eleve?.nom }}
+            {{ editingInscription.eleve?.prenom }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="updateInscription()">
+            <div class="row">
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label>Groupe</label>
+                  <select
+                    [(ngModel)]="editingInscription.groupe_id"
+                    name="groupe_id"
+                    class="form-control"
+                  >
+                    <option *ngFor="let groupe of groupes" [value]="groupe.id">
+                      {{ groupe.nom }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Modifier</button>
+          </form>
         </div>
       </div>
     </div>
