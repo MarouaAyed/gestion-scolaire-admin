@@ -11,7 +11,6 @@ import { ComponentsModule } from './components/components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { RegisterComponent } from './register/register.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
@@ -31,6 +30,5 @@ import { AuthserviceService } from './services/auth/auth.service';
   ],
   declarations: [],
   providers: [AuthserviceService],
-  /* bootstrap: [AppComponent], */
 })
 export class AppModule {}

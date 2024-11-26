@@ -1,4 +1,6 @@
-export class Eleve {
+import { Eleve } from "../eleve/eleve.model";
+
+export class Parent {
   id?: number;
   code?: string;
   nom?: string;
@@ -15,5 +17,6 @@ export class Eleve {
   image?: File;
   codePostal?: number;
   numeroIdentification?: number;
-  parent_id?: number;
+
+  children?: Eleve[]; 
 }

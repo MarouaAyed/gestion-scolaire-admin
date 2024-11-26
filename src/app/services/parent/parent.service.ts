@@ -2,13 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Observable, of } from 'rxjs';
-import { Eleve } from '../../models/eleve/eleve.model';
+import { Parent } from '../../models/parent/parent.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class EleveService {
-  private apiUrl = `${environment.apiUrl}/${environment.prefix}/eleves`;
+export class ParentService {
+  private apiUrl = `${environment.apiUrl}/${environment.prefix}/parents`;
   token: any;
 
   constructor(private httpClient: HttpClient) {}
@@ -24,17 +24,17 @@ export class EleveService {
     };
   }
 
-  getEleves() {
+  getParents() {
     return this.httpClient.get<any>(`${this.apiUrl}`, this.getHttpOptions());
   }
 
-  addEleve(eleveData: Eleve, imageFile: File | null): Observable<any> {
+  addParent(parentData: Parent, imageFile: File | null): Observable<any> {
     const formData = new FormData();
 
     // Append the form data
-    for (const key in eleveData) {
-      if (eleveData[key] !== undefined) {
-        formData.append(key, eleveData[key]);
+    for (const key in parentData) {
+      if (parentData[key] !== undefined) {
+        formData.append(key, parentData[key]);
       }
     }
 
@@ -55,15 +55,23 @@ export class EleveService {
     return this.httpClient.post(`${this.apiUrl}`, formData, httpOptions);
   }
 
-  updateEleve(eleve: Eleve): Observable<Eleve> {
-    return this.httpClient.put<Eleve>(
-      `${this.apiUrl}/${eleve.id}`,
-      eleve,
-      this.getHttpOptions()
+  updateParent(parent: Parent): Observable<Parent> {
+    var headers_object = new HttpHeaders({
+      // No need to set 'Content-Type' to 'application/json' because FormData handles it
+      Authorization: 'Bearer ' + localStorage.getItem('token'),
+    });
+
+    const httpOptions = {
+      headers: headers_object,
+    };
+    return this.httpClient.put<Parent>(
+      `${this.apiUrl}/${parent.id}`,
+      parent,
+      httpOptions
     );
   }
 
-  deleteEleve(id: number): Observable<void> {
+  deleteParent(id: number): Observable<void> {
     return this.httpClient.delete<void>(
       `${this.apiUrl}/${id}`,
       this.getHttpOptions()
