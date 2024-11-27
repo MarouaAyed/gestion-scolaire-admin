@@ -16,4 +16,7 @@ export class Seance {
   salle?: Salle;
   trancheHoraire?: TrancheHoraire;
   groupe?: Groupe;
+
+  presencesEleves?: Array<{eleve: any, present: boolean, seance_id: number}>;
+  presenceEnseignant?: {enseignant: any, present: boolean};
 }

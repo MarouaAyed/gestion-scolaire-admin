@@ -16,6 +16,7 @@ export class NoteComponent implements OnInit {
   newNote: Note = new Note();
   eleves: Eleve[] = [];
   matieres: Matiere[] = [];
+  editingNote: Note = new Note();
 
   loading = false;
 
@@ -72,6 +73,21 @@ export class NoteComponent implements OnInit {
       },
       (error) => {
         console.error("Erreur lors de l'ajout de la note", error);
+      }
+    );
+  }
+
+  openEditNoteModal(note: Note) {
+    this.editingNote = { ...note }; // Make a copy to edit
+  }
+
+  updateNote(): void {
+    this.noteService.updateNote(this.editingNote).subscribe(
+      (data: Note) => {
+        window.location.reload();
+      },
+      (error) => {
+        console.error('Error updating Seance:', error);
       }
     );
   }

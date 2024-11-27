@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Eleve } from '../../models/eleve/eleve.model';
 import { Semestre } from '../../models/semestre/semestre.model';
+import { Note } from '../../models/note/note';
 
 @Injectable({
   providedIn: 'root',
@@ -36,8 +37,9 @@ export class NoteService {
   }
 
   // Mettre à jour une note
-  updateNote(id: number, note: any): Observable<any> {
-    return this.httpClient.put(`${this.apiUrl}/${id}`, note);
+  updateNote(note: Note): Observable<any> {
+    return this.httpClient.put(`${this.apiUrl}/${note.id}`, note,
+      this.getHttpOptions());
   }
 
   // Supprimer une note

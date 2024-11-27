@@ -1,0 +1,54 @@
+<div class="panel-header panel-header-sm"></div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div *ngIf="seance">
+          <h3>Matière: {{ seance.matiere?.nom }}</h3>
+          <p>Enseignant: {{ seance.matiere?.enseignant?.nom }}</p>
+
+          <!-- Vérification si presenceEnseignant existe et n'est pas vide -->
+          <p
+            *ngIf="
+              seance.presenceEnseignant && seance.presenceEnseignant.enseignant
+            "
+          >
+            {{ seance.presenceEnseignant.enseignant?.name }} - Présent:
+            {{ seance.presenceEnseignant?.present ? "Oui" : "Non" }}
+          </p>
+
+          <h3>Présences des élèves :</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Présent</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Vérification si presencesEleves est défini et non vide -->
+              <tr *ngFor="let eleve of seance.presencesEleves">
+                <td>{{ eleve?.eleve?.nom }}</td>
+                <td>{{ eleve?.present ? "Oui" : "Non" }}</td>
+                <td>
+                  <button
+                    (click)="
+                      marquerPresenceEleve(
+                        eleve?.eleve?.id,
+                        eleve?.eleve?.id,
+                        !eleve?.present
+                      )
+                    "
+                  >
+                    Marquer {{ eleve?.present ? "Absent" : "Présent" }}
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

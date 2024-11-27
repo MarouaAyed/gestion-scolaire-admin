@@ -88,19 +88,16 @@ export const ROUTES: RouteInfo[] = [
     ],
   },
   {
+    title: 'Suivi des Présences',
+    icon: 'education_agenda-bookmark',
+    path: '/presence',
+  },
+  {
     path: '/note',
     title: 'Note',
     icon: 'bi bi-pen',
     class: '',
   },
-/*   {
-    title: 'Suivi des Présences',
-    icon: 'education_agenda-bookmark',
-    items: [
-      { path: '/presence', title: 'Présences', icon: 'fas fa-calendar-check' },
-      { path: '/absence', title: 'Absences', icon: 'fas fa-calendar-times' },
-    ],
-  }, */
 ];
 
 @Component({

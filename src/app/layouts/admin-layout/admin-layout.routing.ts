@@ -18,6 +18,7 @@ import { EnseignantComponent } from '../../enseignant/enseignant.component';
 import { ParentComponent } from '../../parent/parent.component';
 import { ProfileComponent } from '../../profile/profile.component';
 import { NoteComponent } from '../../note/note.component';
+import { PresenceComponent } from '../../presence/presence.component';
 
 export const AdminLayoutRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -41,5 +42,7 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'inscription', component: InscriptionComponent },
   { path: 'seance', component: SeanceComponent },
   { path: 'note', component: NoteComponent },
+  { path: 'presence', component: PresenceComponent },
+
 
 ];

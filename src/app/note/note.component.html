@@ -49,9 +49,21 @@
                   </td>
 
                   <td class="text-center">
-                    <button *ngIf="note.id" (click)="deleteNote(note.id)">
-                      Supprimer
-                    </button>
+                    <button
+                    (click)="openEditNoteModal(note)"
+                    class="btn btn-green"
+                    data-bs-toggle="modal"
+                    data-bs-target="#editNoteModal"
+                  >
+                    Modifier
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    *ngIf="note.id" (click)="deleteNote(note.id)"
+                  >
+                    Supprimer
+                  </button>
                   </td>
                 </tr>
               </tbody>
@@ -117,6 +129,45 @@
               />
 
               <button type="submit">Ajouter Note</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <!-- start editNoteModal -->
+      <div
+      class="modal fade"
+      id="editNoteModal"
+      tabindex="-1"
+      aria-labelledby="editNoteModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addMatiereModalLabel">
+              Modifier une note
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form (ngSubmit)="updateNote()">
+             
+              <label for="note">Note</label>
+              <input
+                type="number"
+                id="note"
+                [(ngModel)]="editingNote.note"
+                name="note"
+                required
+              />
+              <button type="submit">Modifier Note</button>
             </form>
           </div>
         </div>
