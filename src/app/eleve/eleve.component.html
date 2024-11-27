@@ -3,19 +3,12 @@
 <div class="main-content">
   <div class="col-md-12">
     <div class="card">
-      <div
-        class="card-header d-flex justify-content-between align-items-center"
-      >
+      <div class="card-header d-flex justify-content-between align-items-center">
         <div>
           <h5 class="title">Elèves</h5>
           <p class="category">Résultats : {{ eleves.length }} Elèves.</p>
         </div>
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#eleveModal"
-        >
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eleveModal">
           Ajouter Eleve
         </button>
       </div>
@@ -44,29 +37,20 @@
                 </td>
 
                 <td class="text-center">
-                  <button
-                  (click)="openEditModalEleve(eleve)"
-                  type="button"
-                  class="btn btn-dark"
-                  data-bs-toggle="modal"
-                  data-bs-target="#editEleveModal"
-                  >
-                    Modifier
+                  <button (click)="openEditModalEleve(eleve)" type="button" class="btn btn-success"
+                    data-bs-toggle="modal" data-bs-target="#editEleveModal">
+                    <i class="fa fa-edit"></i>
                   </button>
-                  <button
-                    type="button"
-                    class="btn btn-danger"
-                    (click)="deleteEleve(eleve.id)"
-                  >
-                    Supprimer
+                  <button type="button" class="btn btn-danger" (click)="deleteEleve(eleve.id)">
+                    <i class="fa fa-trash"></i>
                   </button>
-                  <button
-                    (click)="openInscriptionModal(eleve)"
-                    data-bs-toggle="modal"
-                    data-bs-target="#inscriptionModal"
-                    class="btn btn-primary"
-                  >
+                  <button (click)="openInscriptionModal(eleve)" data-bs-toggle="modal"
+                    data-bs-target="#inscriptionModal" class="btn btn-primary">
                     Inscription
+                  </button>
+                  <button (click)="openBulletinModal(eleve)" data-bs-toggle="modal" data-bs-target="#bulletinModel"
+                    class="btn btn-warning">
+                    Bulletin
                   </button>
                 </td>
               </tr>
@@ -78,23 +62,12 @@
   </div>
 
   <!-- Add Eleve Model -->
-  <div
-    class="modal fade"
-    id="eleveModal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
+  <div class="modal fade" id="eleveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="addCityModalLabel">Formulaire Élève</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form (ngSubmit)="onSubmit()" #eleveForm="ngForm">
@@ -102,65 +75,36 @@
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Prénom</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="prenom"
-                    [(ngModel)]="eleve.prenom"
-                    required
-                  />
+                  <input type="text" class="form-control" name="prenom" [(ngModel)]="eleve.prenom" required />
                 </div>
               </div>
 
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Nom</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="nom"
-                    [(ngModel)]="eleve.nom"
-                    required
-                  />
+                  <input type="text" class="form-control" name="nom" [(ngModel)]="eleve.nom" required />
                 </div>
               </div>
 
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Email</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    placeholder="Email"
-                    name="email"
-                    [(ngModel)]="eleve.email"
-                    required
-                  />
+                  <input type="email" class="form-control" placeholder="Email" name="email" [(ngModel)]="eleve.email"
+                    required />
                 </div>
               </div>
 
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Mot de passe</label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    name="password"
-                    [(ngModel)]="eleve.password"
-                    required
-                  />
+                  <input type="password" class="form-control" name="password" [(ngModel)]="eleve.password" required />
                 </div>
               </div>
 
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Sexe</label>
-                  <select
-                    class="form-control"
-                    name="genre"
-                    [(ngModel)]="eleve.genre"
-                    required
-                  >
+                  <select class="form-control" name="genre" [(ngModel)]="eleve.genre" required>
                     <option value="femme">Femme</option>
                     <option value="homme">Homme</option>
                   </select>
@@ -170,25 +114,16 @@
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Numéro d'identification</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="numeroIdentification"
-                    [(ngModel)]="eleve.numeroIdentification"
-                    required
-                  />
+                  <input type="text" class="form-control" name="numeroIdentification"
+                    [(ngModel)]="eleve.numeroIdentification" required />
                 </div>
               </div>
 
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Ville</label>
-                  <select
-                    [(ngModel)]="eleve.ville_id"
-                    name="ville_id"
-                    class="form-control"
-                    (change)="onCityChange($event)"
-                  >
+                  <select [(ngModel)]="eleve.ville_id" name="ville_id" class="form-control"
+                    (change)="onCityChange($event)">
                     <option *ngFor="let ville of villes" [value]="ville.id">
                       {{ ville.nom }}
                     </option>
@@ -207,39 +142,23 @@
                       </li>
                     </ul>
                   </div>
-                  <input
-                    *ngIf="selectedCityAddresses.length === 0"
-                    type="text"
-                    class="form-control"
-                    name="address"
-                    [(ngModel)]="eleve.address"
-                    required
-                  />
+                  <input *ngIf="selectedCityAddresses.length === 0" type="text" class="form-control" name="address"
+                    [(ngModel)]="eleve.address" required />
                 </div>
               </div>
 
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Date de naissance</label>
-                  <input
-                    type="date"
-                    class="form-control"
-                    name="dateNaissance"
-                    [(ngModel)]="eleve.dateNaissance"
-                    required
-                  />
+                  <input type="date" class="form-control" name="dateNaissance" [(ngModel)]="eleve.dateNaissance"
+                    required />
                 </div>
               </div>
 
               <div>
                 <label for="avatar">Photo de l'élève</label>
-                <input
-                  type="file"
-                  id="avatar"
-                  name="avatar"
-                  (change)="onFileChange($event)"
-                  accept="image/png, image/jpeg"
-                />
+                <input type="file" id="avatar" name="avatar" (change)="onFileChange($event)"
+                  accept="image/png, image/jpeg" />
               </div>
             </div>
 
@@ -250,25 +169,13 @@
     </div>
   </div>
 
-
-    <!-- Edit Eleve Model -->
-    <div
-    class="modal fade"
-    id="editEleveModal"
-    tabindex="-1"
-    aria-labelledby="editEleveLabel"
-    aria-hidden="true"
-  >
+  <!-- Edit Eleve Model -->
+  <div class="modal fade" id="editEleveModal" tabindex="-1" aria-labelledby="editEleveLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="editEleveLabel">Update Élève</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form (ngSubmit)="updateEleve()">
@@ -276,52 +183,29 @@
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Prénom</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="prenom"
-                    [(ngModel)]="editingEleve.prenom"
-                    required
-                  />
+                  <input type="text" class="form-control" name="prenom" [(ngModel)]="editingEleve.prenom" required />
                 </div>
               </div>
 
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Nom</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="nom"
-                    [(ngModel)]="editingEleve.nom"
-                    required
-                  />
+                  <input type="text" class="form-control" name="nom" [(ngModel)]="editingEleve.nom" required />
                 </div>
               </div>
 
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Email</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    placeholder="Email"
-                    name="email"
-                    [(ngModel)]="editingEleve.email"
-                    required
-                  />
+                  <input type="email" class="form-control" placeholder="Email" name="email"
+                    [(ngModel)]="editingEleve.email" required />
                 </div>
               </div>
 
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Sexe</label>
-                  <select
-                    class="form-control"
-                    name="genre"
-                    [(ngModel)]="editingEleve.genre"
-                    required
-                  >
+                  <select class="form-control" name="genre" [(ngModel)]="editingEleve.genre" required>
                     <option value="femme">Femme</option>
                     <option value="homme">Homme</option>
                   </select>
@@ -331,25 +215,16 @@
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Numéro d'identification</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="numeroIdentification"
-                    [(ngModel)]="editingEleve.numeroIdentification"
-                    required
-                  />
+                  <input type="text" class="form-control" name="numeroIdentification"
+                    [(ngModel)]="editingEleve.numeroIdentification" required />
                 </div>
               </div>
 
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Ville</label>
-                  <select
-                    [(ngModel)]="editingEleve.ville_id"
-                    name="ville_id"
-                    class="form-control"
-                    (change)="onCityChange($event)"
-                  >
+                  <select [(ngModel)]="editingEleve.ville_id" name="ville_id" class="form-control"
+                    (change)="onCityChange($event)">
                     <option *ngFor="let ville of villes" [value]="ville.id">
                       {{ ville.nom }}
                     </option>
@@ -368,39 +243,23 @@
                       </li>
                     </ul>
                   </div>
-                  <input
-                    *ngIf="selectedCityAddresses.length === 0"
-                    type="text"
-                    class="form-control"
-                    name="address"
-                    [(ngModel)]="eleve.address"
-                    required
-                  />
+                  <input *ngIf="selectedCityAddresses.length === 0" type="text" class="form-control" name="address"
+                    [(ngModel)]="eleve.address" required />
                 </div>
               </div>
 
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Date de naissance</label>
-                  <input
-                    type="date"
-                    class="form-control"
-                    name="dateNaissance"
-                    [(ngModel)]="editingEleve.dateNaissance"
-                    required
-                  />
+                  <input type="date" class="form-control" name="dateNaissance" [(ngModel)]="editingEleve.dateNaissance"
+                    required />
                 </div>
               </div>
 
               <div>
                 <label for="avatar">Photo de l'élève</label>
-                <input
-                  type="file"
-                  id="avatar"
-                  name="avatar"
-                  (change)="onFileChange($event)"
-                  accept="image/png, image/jpeg"
-                />
+                <input type="file" id="avatar" name="avatar" (change)="onFileChange($event)"
+                  accept="image/png, image/jpeg" />
               </div>
             </div>
 
@@ -412,23 +271,12 @@
   </div>
 
   <!-- Inscription Model -->
-  <div
-    class="modal fade"
-    id="inscriptionModal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
+  <div class="modal fade" id="inscriptionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="addCityModalLabel">Inscription Élève</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form (ngSubmit)="inscriptionEleve()">
@@ -436,11 +284,7 @@
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Groupe</label>
-                  <select
-                    [(ngModel)]="groupe"
-                    name="groupe_id"
-                    class="form-control"
-                  >
+                  <select [(ngModel)]="groupe" name="groupe_id" class="form-control">
                     <option *ngFor="let groupe of groupes" [value]="groupe.id">
                       {{ groupe.nom }}
                     </option>
@@ -455,4 +299,78 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="bulletinModel" tabindex="-1" aria-labelledby="bulletinModelLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="bulletinModelLabel">
+            Bulletin de l'élève
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <label for="semestre">Choisir un semestre</label>
+          <select [(ngModel)]="selectedSemestre" (change)="loadNotes()" class="form-select">
+            <option *ngFor="let semestre of semestres" [value]="semestre.id">
+              {{ semestre.name }}
+            </option>
+          </select>
+
+          <!-- Affichage des notes -->
+          <div class="bulletin" *ngIf="isBulletinVisible">
+            <h2>Bulletin de l'élève</h2>
+
+            <!-- Informations générales de l'élève (vous pouvez personnaliser selon les données disponibles) -->
+            <div class="eleve-info">
+              <p><strong>Nom de l'élève :</strong> {{ selectedEleve.nom }}</p>
+            </div>
+
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Matière</th>
+                  <th scope="col">Coefficient</th>
+                  <th scope="col">Note</th>
+                  <th scope="col">Appréciation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let note of notes">
+                  <td>{{ note.matiere?.nom }}</td>
+                  <td>{{ note.matiere?.coefficient }}</td>
+
+                  <td>{{ note.note }}</td>
+                  <td>
+                    <!-- Vous pouvez ajouter une logique d'appréciation selon la note -->
+                    <span *ngIf="note.note >= 16">Excellent</span>
+                    <span *ngIf="note.note >= 12 && note.note < 16">Bien</span>
+                    <span *ngIf="note.note >= 10 && note.note < 12">Assez Bien</span>
+                    <span *ngIf="note.note < 10">Insuffisant</span>
+
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Optionally, add total and average -->
+            <div class="bulletin-summary">
+              <p><strong>Moyenne générale : </strong>{{ calculateAverage(notes) }}</p>
+              <p><strong>Remarques générales : </strong> {{ getRemarks(calculateAverage(notes)) }}</p>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Fermer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

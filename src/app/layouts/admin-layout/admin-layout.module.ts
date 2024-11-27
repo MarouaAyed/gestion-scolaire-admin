@@ -23,6 +23,7 @@ import { ParentComponent } from '../../parent/parent.component';
 
 import { NgChartsModule } from 'ng2-charts';
 import { ProfileComponent } from '../../profile/profile.component';
+import { NoteComponent } from '../../note/note.component';
 
 @NgModule({
   imports: [
@@ -48,7 +49,8 @@ import { ProfileComponent } from '../../profile/profile.component';
     EleveComponent,
     ParentComponent,
     AnneeScolaireComponent,
-    EnseignantComponent
+    EnseignantComponent,
+    NoteComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

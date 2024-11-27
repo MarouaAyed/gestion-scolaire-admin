@@ -87,7 +87,13 @@ export const ROUTES: RouteInfo[] = [
       },
     ],
   },
- /*  {
+  {
+    path: '/note',
+    title: 'Note',
+    icon: 'bi bi-pen',
+    class: '',
+  },
+/*   {
     title: 'Suivi des Présences',
     icon: 'education_agenda-bookmark',
     items: [
