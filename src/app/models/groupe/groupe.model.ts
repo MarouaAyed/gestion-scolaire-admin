@@ -1,4 +1,5 @@
 
+import { Eleve } from '../eleve/eleve.model';
 import { NiveauSemestre } from '../niveau-semestre/niveau-semestre.model';
 
 export class Groupe {
@@ -8,4 +9,5 @@ export class Groupe {
   niveau_semestre_id?: number;
 
   niveau_semestre?: NiveauSemestre;
+  students?: Eleve[]
 }

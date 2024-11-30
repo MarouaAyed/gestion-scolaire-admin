@@ -23,8 +23,17 @@ export class PresenceService {
       }),
     };
   }
+  getPresencesByYear(): Observable<any> {
+    return this.httpClient.get(`${this.apiUrl}/year`,this.getHttpOptions());
+  }
 
-
+  storePresences(seanceId: number, presences: any): Observable<any> {
+    return this.httpClient.post(
+      `${this.apiUrl}/seances/${seanceId}`, 
+      presences, 
+      this.getHttpOptions()
+    );
+  }
 
   marquerPresenceEleve(seanceId: number, eleveId: number, present: boolean): Observable<any> {
     return this.httpClient.post(`${this.apiUrl}/eleve`, { seance_id: seanceId, eleve_id: eleveId, present });

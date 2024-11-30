@@ -16,4 +16,6 @@ export class Eleve {
   codePostal?: number;
   numeroIdentification?: number;
   parent_id?: number;
+
+  present?: boolean;
 }
